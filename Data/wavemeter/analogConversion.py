@@ -1,5 +1,3 @@
-import numpy as np
-
 def analogConversion(voltage, setPoint=780.000, analogRes=0.001):
     '''
     This function should take an averaged analog output, collected via pyvisa, and convert it into the displayed wavelength on the front panel.
