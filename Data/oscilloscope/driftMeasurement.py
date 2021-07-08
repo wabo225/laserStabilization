@@ -28,9 +28,9 @@ print(oscilloscope.query("DAT?"))
 # print(oscilloscope.query("WFMPre?"))
 
 minutes = 15
-timeBetween = .05
+timeBetween = .05 # > .1 min = 6 sec
 time0 = time.time()
-file = open('data\DriftData'+str(date.today())+'.csv','w')
+file = open('data\DriftLockingData'+str(date.today())+'.csv','w')
 for i in np.arange(0, minutes, timeBetween):
     x = getXofPeak(oscilloscope)
     out = str(round(time.time() - time0,3)) + ', ' + str(x) + '\n'
