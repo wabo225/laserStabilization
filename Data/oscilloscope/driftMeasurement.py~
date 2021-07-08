@@ -1,0 +1,21 @@
+import pyvisa
+import time
+import numpy as np
+from datetime import date
+
+# Visa Connection Creation
+rm = pyvisa.ResourceManager()
+print(rm.list_resources())
+
+oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
+
+oscilloscope.write("DAT:ENC ASCI")
+curv = oscilloscope.query("CURV?")
+print(curv)
+
+# a = np.array([])
+
+oscilloscope.close()
+
+# a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
+
