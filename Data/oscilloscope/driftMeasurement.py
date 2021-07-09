@@ -7,10 +7,16 @@ import struct
 
 def getXofPeak(oscilloscope):
     # Add the ability to convert this number into a usable number matching the wavemeter?
-    curv = oscilloscope.query_binary_values("CURV?",'B')
+    curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
     curv = np.array(curv)
     wavelength = curv.argmax()
+    oscopeScalingFactor = (queryScale(oscilloscope)*1000)**-1
     return wavelength
+
+def queryScale(oscilloscope):
+    return oscilloscope.query('HOR:MAI:SCA?')
+
+
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
@@ -22,7 +28,7 @@ oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may n
 oscilloscope.write("DAT INIT")
 oscilloscope.write("DAT:SOU CH4")
 oscilloscope.write("DAT:WID 1")
-oscilloscope.write("DAT:ENC RPB")
+oscilloscope.write("DAT:ENC RPB") # set oscilloscope to send unsigned char 
 
 print(oscilloscope.query("DAT?"))
 # print(oscilloscope.query("WFMPre?"))
@@ -30,6 +36,7 @@ print(oscilloscope.query("DAT?"))
 minutes = 15
 timeBetween = .05 # > .1 min = 6 sec
 time0 = time.time()
+startingPixel = getXofPeak(oscilloscope)
 file = open('data\DriftLockingData'+str(date.today())+'.csv','w')
 for i in np.arange(0, minutes, timeBetween):
     x = getXofPeak(oscilloscope)
@@ -37,6 +44,8 @@ for i in np.arange(0, minutes, timeBetween):
     print(out, end='')
     file.write(out)
     time.sleep(timeBetween*60)
+
+
 
 file.close()
 oscilloscope.close()
