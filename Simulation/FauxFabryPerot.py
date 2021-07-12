@@ -19,7 +19,7 @@ interferometer = lambda x, mus : sum([bell(x, mu=mu, sigma=0.05, squish=0.8) for
 
 np.array(sawto(t,width=1, phase=np.pi))
 plt.plot(t, sawto(t, width=1, phase=np.pi), t, interferometer(t,mus))
-plt.title("Faux Fabry Perot")
+plt.title("Fabry Perot Output Example")
 plt.xlabel("Time")
 plt.ylabel("Voltage")
 plt.show()

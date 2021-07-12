@@ -1,4 +1,5 @@
 from os import write
+import os
 import pyvisa
 import time
 import numpy as np
@@ -12,7 +13,11 @@ def wavelengthPerPixel(oscilloscope):
     splitCurve= np.split(curv,20)
     left= np.argmax(splitCurve[0])
     right= np.argmax(splitCurve[1])
+    
     return 3.045*10**-12/(1250-left + right)
+
+def queryScale(oscilloscope):
+    oscilloscope.query()
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
@@ -27,8 +32,16 @@ oscilloscope.write("DAT:WID 1")
 oscilloscope.write("DAT:ENC RPB")
 
 print(oscilloscope.query("DAT?"))
-# print(oscilloscope.query("WFMPre?"))
 
+print(wavelengthPerPixel(oscilloscope))
+
+a=[]
+for i in range(0,20):
+    a.append(wavelengthPerPixel(oscilloscope))
+    time.sleep(1)
+a=np.array(a)
+print("mean:", np.mean(a))
+print("std :", np.std(a))
 oscilloscope.close()
 
 # a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
