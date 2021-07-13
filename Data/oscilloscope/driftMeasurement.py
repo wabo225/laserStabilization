@@ -10,19 +10,24 @@ def getXofPeak(oscilloscope):
     curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
     curv = np.array(curv)
     wavelength = curv.argmax()
-    oscopeScalingFactor = (queryScale(oscilloscope)*1000)**-1
+    #oscopeScalingFactor = (queryScale(oscilloscope)*1000)**-1
     return wavelength
 
 def queryScale(oscilloscope):
     return oscilloscope.query('HOR:MAI:SCA?')
 
+def paramRef(dlc, command):
+    dlc.write("(param-ref " + command + ")")
+    dlc.read()
+    return dlc.read().strip()
 
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
-print(rm.list_resources())
-
+# print(rm.list_resources())
+resources = rm.list_resources()
 oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
+dlc = rm.open_resource(rm.list_resources()[2]) # Again. This will very likely be wrong if this code is run on any other computer.
 
 # Initialize CURV
 oscilloscope.write("DAT INIT")
@@ -33,14 +38,16 @@ oscilloscope.write("DAT:ENC RPB") # set oscilloscope to send unsigned char
 print(oscilloscope.query("DAT?"))
 # print(oscilloscope.query("WFMPre?"))
 
+# change these values 
 minutes = 15
-timeBetween = .05 # > .1 min = 6 sec
+timeBetween = .15 # >= .1 min = 6 sec
 time0 = time.time()
 startingPixel = getXofPeak(oscilloscope)
-file = open('data\DriftLockingData'+str(date.today())+'.csv','w')
+file = open('data\DriftLockingDataPID1'+str(date.today())+'.csv','w')  # filename
 for i in np.arange(0, minutes, timeBetween):
     x = getXofPeak(oscilloscope)
-    out = str(round(time.time() - time0,3)) + ', ' + str(x) + '\n'
+    temp = paramRef(dlc, "'laser1:dl:tc:temp-act")
+    out = str(round(time.time() - time0,3)) + ', ' + str(x) + ', ' + temp + '\n'
     print(out, end='')
     file.write(out)
     time.sleep(timeBetween*60)
