@@ -9,12 +9,11 @@ def getXofPeak(oscilloscope):
     # Add the ability to convert this number into a usable number matching the wavemeter?
     curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
     curv = np.array(curv)
-    wavelength = curv.argmax()
-    #oscopeScalingFactor = (queryScale(oscilloscope)*1000)**-1
+    xpix = curv.argmax()
+    oscopeScreenScale = queryScale(oscilloscope)/2500 #timeperpixel
+    
     return wavelength
 
-def queryScale(oscilloscope):
-    return oscilloscope.query('HOR:MAI:SCA?')
 
 def paramRef(dlc, command):
     dlc.write("(param-ref " + command + ")")
@@ -52,11 +51,7 @@ for i in np.arange(0, minutes, timeBetween):
     file.write(out)
     time.sleep(timeBetween*60)
 
-
-
 file.close()
 oscilloscope.close()
 
 # a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
-
-
