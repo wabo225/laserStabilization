@@ -57,10 +57,26 @@ class Oscilloscope:
         
     def HorizontalParams(self, option=None, set=False):
         options = {
-
+            "SCA": "SCAle",
+            "POS":"POSition",
+            "RECO":"RECOrdlength"
         }
         if option==None:
             return self.osc.query("HOR?")
+        if options[option]:
+            if set:
+                return self.osc.write(f'HOR:{option} {set}')
+            return self.osc.query(f'HOR:{option}?')
+
+    def curvInit(self):
+        self.osc.write("DAT INIT")
+        self.osc.write(f"DAT:SOU CH{self.channel}")
+        self.osc.write("DAT:WID 1")
+        self.osc.write("DAT:ENC RPB")
+        pass
+
+    def CURV(self):
+        return self.osc.query_binary_values("CURV?",'B')
 
     def print(self, name, value):
         if self.channel:
@@ -78,4 +94,5 @@ if __name__ == "__main__":
     o = Oscilloscope(rm.open_resource(rm.list_resources()[0]))
 
     o.setChannel(1)
-    print(o.HorizontalParams())
+    o.HorizontalParams("SCA", 1E-2)
+    print("HOR:SCA:", o.HorizontalParams("SCA"))
