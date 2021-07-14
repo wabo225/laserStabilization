@@ -15,10 +15,14 @@ def wavelengthPerPixel(oscilloscope):
     return 3.045*10**-12/(1250-left + right)
 
 def queryScale(oscilloscope):
-    return float(oscilloscope.query('HOR:MAI:SCA?'))
+    #[x scale, yscale]
+    return [float(oscilloscope.query('HOR:MAI:SCA?')),float(oscilloscope.query('CH<x>:SCA?'))]
 
 def timePerPixel(oscilloscope):
-    return  queryScale(oscilloscope)/2500
+    return  queryScale(oscilloscope)[0]/250
+
+def voltsPerPixel(oscilloscope):
+    return queryScale(oscilloscope)[1]/250
 
 def wavelengthPerSecond(oscilloscope):
     return wavelengthPerPixel(oscilloscope)/timePerPixel(oscilloscope)
@@ -39,14 +43,38 @@ oscilloscope.write("DAT:ENC RPB")
 
 print(oscilloscope.query("DAT?"))
 
+# Sweep Expansion
+def findSweep(oscilloscope):
+    
+    oscilloscope.write("DAT:SOU CH3")
+    #Pull Scale 
 
-a=[]
+    #Slope in Pix
+    sweepCurv = oscilloscope.query_binary_values("CURV?",'B')
+    slopeSweep0= np.gradient(sweepCurv)
+    slopeSweep= np.gradient(sweepCurv)[np.gradient(sweepCurv)>=0]
+
+    return slopeSweep
+
+sweep=findSweep(oscilloscope)
+sweepAvg=np.average(sweep)
+print(sweep)
+print(sweepAvg)
+plt.plot(sweep)
+plt.show()
+
+
+
+
+
+
+"""a=[]
 for i in range(0,20):
     a.append(wavelengthPerPixel(oscilloscope)/timePerPixel(oscilloscope))
     time.sleep(1)
 a=np.array(a)
 print("mean:", np.mean(a))
-print("std :", np.std(a))
+print("std :", np.std(a))"""
 oscilloscope.close() 
 
 # a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
