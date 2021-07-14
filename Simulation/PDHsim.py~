@@ -64,7 +64,7 @@ for i in range(0,30): # iterations become frames in the animation
   # I've left out the derivative because its especially useless in a noiseless environment
 
 ani = FuncAnimation(fig, update, frames=wavelengths, init_func=init, blit=True)
-plt.show()
+# plt.show()
 
-# ani.save("finale.mp4")
+ani.save("finale.mp4")
 # ani.to_html5_video()
