@@ -1,4 +1,4 @@
-from Tektronics.Channel import Channel
+# from Channel import Channel
 import os
 from enum import Enum, auto
 
@@ -29,11 +29,17 @@ class Oscilloscope:
         'RED'    : '\033[91m'
     }
 
+    horizontalScale: HorOptionsTypes[HorOptions.SCA] 
+    horizontalPosition: HorOptionsTypes[HorOptions.POS] 
+    HorizontalParams: HorOptionsTypes[HorOptions.RECO] 
+
     def __init__(self, oscil):
         self.osc = oscil
         # should call setChannel on the channel associated with DAT:SOU
-        self.setChannel(int(self.osc.query("DAT:SOU?")))
+        self.setChannel(int(self.osc.query("DAT:SOU?").strip()[-1]))
         print(oscil.query('*IDN?'), end='')
+        print(self.HorizontalParams())
+
 
     def setChannel(self, channel):
         self.activeChannel = channel
@@ -71,7 +77,7 @@ class Oscilloscope:
                 self.osc.write(f'CH{self.channel}:{option} {set}')
             return self.osc.query(f'CH{self.channel}:{option}?')
         
-    def HorizontalParams(self, option: HorOptions, set=False):
+    def HorizontalParams(self, option: HorOptions = None, set=False):
         '''
         Use HOR-OPTIONS
         
@@ -113,5 +119,5 @@ if __name__ == "__main__":
     o = Oscilloscope(rm.open_resource(rm.list_resources()[0]))
 
     o.setChannel(1)
-    o.HorizontalParams(HorOptions.SCA, 1E-2)
-    print(o.HorizontalParams(HorOptions.SCA))
+    # o.HorizontalParams(HorOptions.SCA, 1E-2)
+    # print(o.HorizontalParams())
