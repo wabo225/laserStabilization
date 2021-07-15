@@ -5,6 +5,10 @@ import numpy as np
 from datetime import date
 import struct
 
+#Oscilloscope Scale
+xDivsPerScreen = 10
+wavPerXPix = lambda o : float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*xDivsPerScreen
+
 def getXofPeak(oscilloscope):
     # Add the ability to convert this number into a usable number matching the wavemeter?
     curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
