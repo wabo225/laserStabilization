@@ -1,16 +1,29 @@
-import pyvisa
-import time
+from enum import Enum, auto
 
-rm = pyvisa.ResourceManager()
-print(rm.list_resources())
+class options(Enum):
+    OPTION1 = 1
+    OPTION2 = 2
+    OPTION3 = 3
 
-oscilloscope = rm.open_resource(rm.list_resources()[0])
+print(options.OPTION1.name)
 
-SCPI = ''
-while True:
-    print('> ', end='')
-    SCPI = input()
-    if SCPI.endswith('?'):
-        print(oscilloscope.query(SCPI), end='')
-    else:
-        oscilloscope.write(SCPI)
+class Parent:
+    def __init__(self):
+        self.value = 4
+    def change(self, newValue):
+        self.value = newValue
+
+class Child(Parent):
+    def __init__(self):
+        self.value = super().value
+    
+    def update(self):
+        self.value = super().value
+    
+    def print(self):
+        print(self.value)
+
+p = Parent
+c = Child
+# c.print(c)
+p.change(3)
