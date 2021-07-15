@@ -6,11 +6,8 @@ from datetime import date
 import struct
 from matplotlib import pyplot as plt
 
-from Tektronics import Oscilloscope
-#Oscilloscope Scale
-xDivsPerScreen = 10
-wavPerXPix = lambda o : float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*xDivsPerScreen
-secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*divsPerScreen
+from Tektronics import Oscilloscope as Osc
+divsPerScreen = 10
 
 
 
@@ -33,7 +30,7 @@ def wavelengthPerSecond(o):
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
 print(rm.list_resources())
-o = Oscilloscope.Oscilloscope(rm.open_resource(rm.list_resources()[0])) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
+o = Osc.Oscilloscope(rm.open_resource(rm.list_resources()[0])) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
 
 
 # Sweep Expansion
@@ -42,7 +39,7 @@ def findSweep(o):
     o.curvInit()
     o.CURV()
     voltsPerPix= float(o.VerticalParams("SCA"))*8/255
-    secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*divsPerScreen
+    secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
     
     #Slope in Pix
     sweepCurv = o.CURV()

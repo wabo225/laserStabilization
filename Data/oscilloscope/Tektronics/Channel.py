@@ -12,12 +12,15 @@ class Channel(Oscilloscope):
     def __init__(self, channel):
         self.color = self.channels[channel]
         self.channel = channel
-        global osc
-        self.osc = osc
+        
+        self.osc = super().osc
+
+    def print(self, value, name: str = ''):
+        super().print(value, name)
 
     def query(self, command, param):
-        print(
-            osc.query(f'CH{self.channel}?')
+        super().print(
+            self.osc.query(f'CH{self.channel}?')
         )
 
 
