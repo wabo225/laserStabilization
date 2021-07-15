@@ -7,17 +7,28 @@ import struct
 from matplotlib import pyplot as plt
 
 from Tektronics import Oscilloscope
-divsPerScreen = 10
+#Oscilloscope Scale
+xDivsPerScreen = 10
+wavPerXPix = lambda o : float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*xDivsPerScreen
+secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams("RECO"))*divsPerScreen
 
-def wavelengthPerPixel(oscilloscope):
+
+
+def wavelengthPerSecond(o):
     # distance between FP peaks two peaks must be on either side of split
-    curv = oscilloscope.query_binary_values("CURV?",'B')
-    curv = np.array(curv)
+    o.setChannel(3)
+    o.curvInit()
+    curv = o.CURV()
     splitCurve= np.split(curv,20)
     left= np.argmax(splitCurve[0])
     right= np.argmax(splitCurve[1])
-    
-    return 3.045*10**-12/(1250-left + right)
+    wavPerPix= 3.045*10**-12/(1250-left + right)
+    timeScale=wavPerXPix(o)
+    return wavPerPix/time
+
+ def sweepWLChange(o):
+    Return [findSweep(o),wavelengthPerSecond]
+
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
