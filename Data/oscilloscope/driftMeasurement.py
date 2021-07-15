@@ -14,14 +14,13 @@ def getXofPeak(oscilloscope):
     curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
     curv = np.array(curv)
     xpix = curv.argmax()
-    oscopeScreenScale = queryScale(oscilloscope)/2500 #timeperpixel
+    # oscopeScreenScale = queryScale(oscilloscope)/2500 #timeperpixel
     
-    return wavelength
+    return xpix
 
 
 def paramRef(dlc, command):
     dlc.write("(param-ref " + command + ")")
-    dlc.read()
     return dlc.read().strip()
 
 

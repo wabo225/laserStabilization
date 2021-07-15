@@ -1,5 +1,7 @@
 import Oscilloscope
 
+
+
 class Channel(Oscilloscope):
     channels = {
         1: "YELLOW",
@@ -22,8 +24,6 @@ class Channel(Oscilloscope):
         super().print(
             self.osc.query(f'CH{self.channel}?')
         )
-
-
 
 if __name__ == "__main__":
     from Oscilloscope import Oscilloscope

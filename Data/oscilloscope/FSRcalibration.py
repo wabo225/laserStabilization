@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from Tektronics import Oscilloscope as Osc
 divsPerScreen = 10
 
-
+secondsPerPixel = lambda o : float(o.HorizontalParams(Osc.HorOptions.SCA))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
 
 def wavelengthPerSecond(o):
     # distance between FP peaks two peaks must be on either side of split
@@ -18,11 +18,11 @@ def wavelengthPerSecond(o):
     left= np.argmax(splitCurve[0])
     right= np.argmax(splitCurve[1])
     wavPerPix= 3.045*10**-12/(1250-left + right)
-    timeScale=wavPerXPix(o)
-    return wavPerPix/time
+    timeScale=secondsPerPixel(o)
+    return wavPerPix/timeScale
 
- def sweepWLChange(o):
-    Return [findSweep(o),wavelengthPerSecond]
+def sweepWLChange(o):
+    return [findSweep(o),wavelengthPerSecond]
 
 
 # Visa Connection Creation

@@ -4,15 +4,33 @@ from enum import Enum, auto
 
 os.system('color')
 
-class HorOptions(Enum):
-    SCA = auto()
-    POS = auto()
-    RECO = auto()
+class AcquisitionOptions(Enum):
+    MOD = auto()
+    NUMAC = auto()
+    NUMAV = auto()
+    STATE = auto()
+    STOPA = auto()
 
-HorOptionsTypes = {
-    HorOptions.SCA: float,
-    HorOptions.POS: float,
+AcquisitionOptionTypes = {
+    AcquisitionOptions.MOD: auto(),
+    AcquisitionOptions.NUMAC: auto(),
+    AcquisitionOptions.NUMAV: auto(),
+    AcquisitionOptions.STATE: auto(),
+    AcquisitionOptions.STOPA: auto(),
+}
+
+class HorizontalOptions(Enum):
+    VIEW = auto()
+    RECO = auto()
+    POS = auto()
+    SCA = auto()
+    DEL = auto()
+
+HorizontalOptionsTypes = {
+    HorOptions.VIEW: str,
     HorOptions.RECO: int,
+    HorOptions.POS: float,
+    HorOptions.SCA: float,
 }
 
 class Oscilloscope:
@@ -29,14 +47,11 @@ class Oscilloscope:
         'RED'    : '\033[91m'
     }
 
-    horizontalScale: HorOptionsTypes[HorOptions.SCA] 
-    horizontalPosition: HorOptionsTypes[HorOptions.POS] 
-    HorizontalParams: HorOptionsTypes[HorOptions.RECO] 
-
     def __init__(self, oscil):
         self.osc = oscil
         # should call setChannel on the channel associated with DAT:SOU
         self.setChannel(int(self.osc.query("DAT:SOU?").strip()[-1]))
+
         print(oscil.query('*IDN?'), end='')
         print(self.HorizontalParams())
 
@@ -47,6 +62,13 @@ class Oscilloscope:
             raise ValueError("Channel must be between 0 and 4") # refactor into custom error class
         self.color =  list(self.cols.values())[channel]
         # there could be implementation to make the oscilloscope "select" the channel or save the channel settings here.
+
+    def AcquisitionParams(self, option : AcquisitionOptions =None, set=False):
+        '''
+        Use
+        '''
+        
+        pass    
 
     def VerticalParams(self, option=None, set=False): # Move into Channel subclass
         '''
@@ -77,9 +99,9 @@ class Oscilloscope:
                 self.osc.write(f'CH{self.channel}:{option} {set}')
             return self.osc.query(f'CH{self.channel}:{option}?')
         
-    def HorizontalParams(self, option: HorOptions = None, set=False):
+    def HorizontalParams(self, option: HorizontalOptions = None, set=False):
         '''
-        Use HOR-OPTIONS
+        use OSC.HorizontalOptions.SCA
         
         SCA  SCAle -> float
         POS  POSition -> float
@@ -89,7 +111,7 @@ class Oscilloscope:
             return self.osc.query("HOR?")
         if set:
             return self.osc.write(f'HOR:{option.name} {set}')
-        return HorOptionsTypes.get(option)(
+        return HorizontalOptionsTypes.get(option)(
             self.osc.query(f'HOR:{option.name}?')
             )
 
@@ -98,7 +120,6 @@ class Oscilloscope:
         self.osc.write(f"DAT:SOU CH{self.channel}")
         self.osc.write("DAT:WID 1")
         self.osc.write("DAT:ENC RPB")
-        pass
 
     def CURV(self):
         return self.osc.query_binary_values("CURV?",'B')
