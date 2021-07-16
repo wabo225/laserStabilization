@@ -24,6 +24,6 @@ class Child(Parent):
         print(self.value)
 
 p = Parent
-c = Child
+c = Child(p)
 # c.print(c)
-p.change(3)
+# p.change(3)

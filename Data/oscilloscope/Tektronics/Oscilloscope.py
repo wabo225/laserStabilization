@@ -1,18 +1,36 @@
-from Tektronics.Channel import Channel
+# from Channel import Channel
 import os
 from enum import Enum, auto
 
 os.system('color')
 
-class HorOptions(Enum):
-    SCA = auto()
-    POS = auto()
-    RECO = auto()
+class AcquisitionOptions(Enum):
+    MOD = auto()
+    NUMAC = auto()
+    NUMAV = auto()
+    STATE = auto()
+    STOPA = auto()
 
-HorOptionsTypes = {
-    HorOptions.SCA: float,
-    HorOptions.POS: float,
-    HorOptions.RECO: int,
+AcquisitionOptionTypes = {
+    AcquisitionOptions.MOD: auto(),
+    AcquisitionOptions.NUMAC: auto(),
+    AcquisitionOptions.NUMAV: auto(),
+    AcquisitionOptions.STATE: auto(),
+    AcquisitionOptions.STOPA: auto(),
+}
+
+class HorizontalOptions(Enum):
+    VIEW = auto()
+    RECO = auto()
+    POS = auto()
+    SCA = auto()
+    DEL = auto()
+
+HorizontalOptionsTypes = {
+    HorizontalOptions.VIEW: str,
+    HorizontalOptions.RECO: int,
+    HorizontalOptions.POS: float,
+    HorizontalOptions.SCA: float,
 }
 
 # lambda acc=0, prev = 0 lambda K_p, K_i, K_d : lambda e : K_p*e + K_i*acc + K_d*der
@@ -37,8 +55,11 @@ class Oscilloscope:
     def __init__(self, oscil):
         self.osc = oscil
         # should call setChannel on the channel associated with DAT:SOU
-        self.setChannel(int(self.osc.query("DAT:SOU?")))
+        self.setChannel(int(self.osc.query("DAT:SOU?").strip()[-1]))
+
         print(oscil.query('*IDN?'), end='')
+        print(self.HorizontalParams())
+
 
     def setChannel(self, channel):
         self.activeChannel = channel
@@ -46,6 +67,13 @@ class Oscilloscope:
             raise ValueError("Channel must be between 0 and 4") # refactor into custom error class
         self.color =  list(self.cols.values())[channel]
         # there could be implementation to make the oscilloscope "select" the channel or save the channel settings here.
+
+    def AcquisitionParams(self, option: AcquisitionOptions = None, set=False):
+        '''
+        Use Osc.AcquisitionOptions
+        '''
+        
+        pass    
 
     def VerticalParams(self, option=None, set=False): # Move into Channel subclass
         '''
@@ -76,9 +104,9 @@ class Oscilloscope:
                 self.osc.write(f'CH{self.channel}:{option} {set}')
             return self.osc.query(f'CH{self.channel}:{option}?')
         
-    def HorizontalParams(self, option: HorOptions, set=False):
+    def HorizontalParams(self, option: HorizontalOptions = None, set=False):
         '''
-        Use HOR-OPTIONS
+        use OSC.HorizontalOptions.SCA
         
         SCA  SCAle -> float
         POS  POSition -> float
@@ -88,7 +116,7 @@ class Oscilloscope:
             return self.osc.query("HOR?")
         if set:
             return self.osc.write(f'HOR:{option.name} {set}')
-        return HorOptionsTypes.get(option)(
+        return HorizontalOptionsTypes.get(option)(
             self.osc.query(f'HOR:{option.name}?')
             )
 
@@ -97,7 +125,6 @@ class Oscilloscope:
         self.osc.write(f"DAT:SOU CH{self.channel}")
         self.osc.write("DAT:WID 1")
         self.osc.write("DAT:ENC RPB")
-        pass
 
     def CURV(self):
         return self.osc.query_binary_values("CURV?",'B')
@@ -118,5 +145,5 @@ if __name__ == "__main__":
     o = Oscilloscope(rm.open_resource(rm.list_resources()[0]))
 
     o.setChannel(1)
-    o.HorizontalParams(HorOptions.SCA, 1E-2)
-    print(o.HorizontalParams(HorOptions.SCA))
+    # o.HorizontalParams(HorOptions.SCA, 1E-2)
+    # print(o.HorizontalParams())

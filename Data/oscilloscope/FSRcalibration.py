@@ -1,23 +1,29 @@
 from numpy.lib.shape_base import expand_dims
 import pyvisa
-import time
 import numpy as np
 from datetime import date
-import struct
 from matplotlib import pyplot as plt
 
 from Tektronics import Oscilloscope as Osc
 divsPerScreen = 10
 
-def wavelengthPerPixel(oscilloscope):
+secondsPerPixel = lambda o : float(o.HorizontalParams(Osc.HorOptions.SCA))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
+
+def wavelengthPerSecond(o):
     # distance between FP peaks two peaks must be on either side of split
-    curv = oscilloscope.query_binary_values("CURV?",'B')
-    curv = np.array(curv)
+    o.setChannel(3)
+    o.curvInit()
+    curv = o.CURV()
     splitCurve= np.split(curv,20)
     left= np.argmax(splitCurve[0])
     right= np.argmax(splitCurve[1])
-    
-    return 3.045*10**-12/(1250-left + right)
+    wavPerPix= 3.045*10**-12/(1250-left + right)
+    timeScale=secondsPerPixel(o)
+    return wavPerPix/timeScale
+
+def sweepWLChange(o):
+    return [findSweep(o),wavelengthPerSecond]
+
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
@@ -49,7 +55,8 @@ sweep=findSweep(o)
 # o.print("VOLTS per SECOND", sweep)
 # o.print("SECONDS per 15V sweep", 15/sweep)
 expansions = [1,2,5,10,20,50,100]
-o.print("hScale", float(o.HorizontalParams("SCA")))
+o.HorizontalParams(Osc.HorOptions.POS)
+o.print("hScale", float(o.HorizontalParams(Osc.HorOptions.SCA)))
 print(0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) )
 o.print("SweepExpansion", 
     expansions[np.argmin(np.abs( # index of minimum value of absolute value of difference in risetime options and calculated risetime
