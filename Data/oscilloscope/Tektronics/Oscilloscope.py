@@ -27,10 +27,10 @@ class HorizontalOptions(Enum):
     DEL = auto()
 
 HorizontalOptionsTypes = {
-    HorOptions.VIEW: str,
-    HorOptions.RECO: int,
-    HorOptions.POS: float,
-    HorOptions.SCA: float,
+    HorizontalOptions.VIEW: str,
+    HorizontalOptions.RECO: int,
+    HorizontalOptions.POS: float,
+    HorizontalOptions.SCA: float,
 }
 
 class Oscilloscope:
@@ -63,9 +63,9 @@ class Oscilloscope:
         self.color =  list(self.cols.values())[channel]
         # there could be implementation to make the oscilloscope "select" the channel or save the channel settings here.
 
-    def AcquisitionParams(self, option : AcquisitionOptions =None, set=False):
+    def AcquisitionParams(self, option: AcquisitionOptions = None, set=False):
         '''
-        Use
+        Use Osc.AcquisitionOptions
         '''
         
         pass    
