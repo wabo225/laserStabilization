@@ -33,6 +33,11 @@ HorizontalOptionsTypes = {
     HorizontalOptions.SCA: float,
 }
 
+# lambda acc=0, prev = 0 lambda K_p, K_i, K_d : lambda e : K_p*e + K_i*acc + K_d*der
+
+def PID(e, acc=0, prev=0, der=0):
+    PID(e, acc+prev, e-prev)
+
 class Oscilloscope:
     '''
         This class will be responsible for shared communication between
