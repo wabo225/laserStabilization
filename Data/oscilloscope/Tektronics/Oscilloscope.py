@@ -1,23 +1,30 @@
 # from Channel import Channel
 import os
 from enum import Enum, auto
+from dataclasses import dataclass
 
 os.system('color')
 
-class AcquisitionOptions(Enum):
+class ONOFF(Enum):
+    OFF = 0
+    ON = 1
+
+
+class AcquisitionOptions: 
     MOD = auto()
     NUMAC = auto()
     NUMAV = auto()
     STATE = auto()
     STOPA = auto()
 
-AcquisitionOptionTypes = {
-    AcquisitionOptions.MOD: auto(),
-    AcquisitionOptions.NUMAC: auto(),
-    AcquisitionOptions.NUMAV: auto(),
-    AcquisitionOptions.STATE: auto(),
-    AcquisitionOptions.STOPA: auto(),
-}
+@dataclass
+class Acquisition:
+    Options: AcquisitionOptions
+    MOD: str
+    NUMAC: int
+    NUMAV: int
+    STATE: int
+    STOPA: int
 
 class HorizontalOptions(Enum):
     VIEW = auto()
@@ -26,17 +33,13 @@ class HorizontalOptions(Enum):
     SCA = auto()
     DEL = auto()
 
-HorizontalOptionsTypes = {
-    HorizontalOptions.VIEW: str,
-    HorizontalOptions.RECO: int,
-    HorizontalOptions.POS: float,
-    HorizontalOptions.SCA: float,
-}
-
-# lambda acc=0, prev = 0 lambda K_p, K_i, K_d : lambda e : K_p*e + K_i*acc + K_d*der
-
-def PID(e, acc=0, prev=0, der=0):
-    PID(e, acc+prev, e-prev)
+@dataclass
+class Horizontal:
+    HorizontalOptions = HorizontalOptions
+    VIEW: str
+    RECO: int
+    POS: float
+    SCA: float
 
 class Oscilloscope:
     '''
@@ -51,6 +54,8 @@ class Oscilloscope:
         'GREEN'  : '\033[92m',
         'RED'    : '\033[91m'
     }
+
+    Aquire: Acquisition
 
     def __init__(self, oscil):
         self.osc = oscil
@@ -68,7 +73,7 @@ class Oscilloscope:
         self.color =  list(self.cols.values())[channel]
         # there could be implementation to make the oscilloscope "select" the channel or save the channel settings here.
 
-    def AcquisitionParams(self, option: AcquisitionOptions = None, set=False):
+    def getAcquisitionParams(self, set=False):
         '''
         Use Osc.AcquisitionOptions
         '''
@@ -115,7 +120,7 @@ class Oscilloscope:
         if option==None:
             return self.osc.query("HOR?")
         if set:
-            return self.osc.write(f'HOR:{option.name} {set}')
+            self.osc.write(f'HOR:{option.name} {set}')
         return HorizontalOptionsTypes.get(option)(
             self.osc.query(f'HOR:{option.name}?')
             )
