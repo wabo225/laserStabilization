@@ -144,6 +144,20 @@ class Oscilloscope:
     def CURV(self) -> List:
         return self.osc.query_binary_values("CURV?",'B')
 
+    def write(self, command):
+        '''
+        a function for writing directly to the oscilloscope.
+        internal use
+        '''
+        self.osc.write(command)
+    
+    def query(self, command):
+        '''
+        a function for querying direct to the oscilloscope.
+        internal use
+        '''
+        self.osc.query(command+'?')
+    
     def print(self, value, name: str = ''):
         if not name:
             print(f'{self.color}Channel {self.activeChannel} info:\033[0m {value}')
@@ -155,13 +169,13 @@ class Oscilloscope:
         print('Connection to oscilloscope closed')
 
 # Sweep Expansion
-def findSweep(o: Oscilloscope, channel:int = 4) -> Tuple[int, float, float]:
+def findSweep(o: Oscilloscope, channel:int = 4) -> int:
     '''
     Given an oscilloscope object, returns a tuple with 
     (sweep expansion, volts per pixel, and seconds per pixel)
     '''
     divsPerScreen = 10
-    o.setChannel(4)
+    o.setChannel(3)
     o.curvInit()
     o.CURV()
     voltsPerPix= float(o.VerticalParams(VerticalOptions.SCA))*8/255 # 255 depends on WIDTH 1
@@ -186,7 +200,7 @@ def findSweep(o: Oscilloscope, channel:int = 4) -> Tuple[int, float, float]:
             0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) 
         ))]
     # o.print("SweepExpansion", expansion)
-    return expansion, voltsPerPix, secondsPerPix
+    return expansion
 
 def main():
     import pyvisa
