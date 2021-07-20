@@ -1,0 +1,79 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2708,         71]
+NotebookOptionsPosition[      2180,         55]
+NotebookOutlinePosition[      2572,         71]
+CellTagsIndexPosition[      2529,         68]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"data", "=", 
+  RowBox[{
+   RowBox[{"ResourceFunction", "[", "\"\<ImportCSVToDataset\>\"", "]"}], "[", 
+   "\"\</Users/charlottezehnder/Documents/Academic/Summer 2021 Phys \
+REU/laserStabilization/DataAnalysis/GUISpectrumDatatest.csv\>\"", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.835398183924547*^9, 3.835398188669795*^9}, {
+   3.835398315402018*^9, 3.835398401919627*^9}, {3.835398445520496*^9, 
+   3.835398453119334*^9}, {3.8353989322966347`*^9, 3.8353989858574257`*^9}, {
+   3.835399053738583*^9, 3.8353990608695374`*^9}, {3.8353992754971123`*^9, 
+   3.8353992791575212`*^9}, {3.835400687826357*^9, 3.835400694539551*^9}, {
+   3.835400835786642*^9, 3.835400842028356*^9}, {3.83540094235641*^9, 
+   3.835400949973091*^9}, {3.835401022612588*^9, 3.83540105710109*^9}, {
+   3.83540117517251*^9, 3.835401185672907*^9}, {3.8354012684620543`*^9, 
+   3.835401270980204*^9}, {3.835401879871523*^9, 3.83540190259763*^9}, 
+   3.8354025460368347`*^9, {3.8354028306807423`*^9, 3.835402837189961*^9}},
+ CellLabel->"In[30]:=",ExpressionUUID->"ebb25f13-23f9-44b1-ad55-ff6e369641b0"],
+
+Cell[BoxData[
+ RowBox[{"tabtest", "=", " ", 
+  RowBox[{
+  "Import", "[", 
+   "\"\</Users/charlottezehnder/Documents/Academic/Summer 2021 Phys \
+REU/laserStabilization/DataAnalysis/GUISpectrumDatatest.csv\>\"", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8354030088916683`*^9, 
+  3.8354030255111027`*^9}},ExpressionUUID->"bade9f9e-f23f-4909-bec6-\
+14c0e30f9f09"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.835402117667466*^9, 
+  3.835402123321705*^9}},ExpressionUUID->"3a8534d4-678b-4af4-8898-\
+3a63a75ba364"]
+},
+WindowSize->{808, 715},
+WindowMargins->{{Automatic, 278}, {Automatic, 0}},
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (May 11, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"0b0b975d-e01b-4130-a8d9-f058d313ccb3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1098, 17, 73, "Input",ExpressionUUID->"ebb25f13-23f9-44b1-ad55-ff6e369641b0"],
+Cell[1659, 39, 362, 9, 94, "Input",ExpressionUUID->"bade9f9e-f23f-4909-bec6-14c0e30f9f09"],
+Cell[2024, 50, 152, 3, 30, "Input",ExpressionUUID->"3a8534d4-678b-4af4-8898-3a63a75ba364"]
+}
+]
+*)
+
