@@ -1,14 +1,12 @@
 # from Channel import Channel
 import os
 from enum import Enum, auto
+from typing import List, Tuple
 from dataclasses import dataclass
+import numpy as np
+# from Channel import Channel
 
 os.system('color')
-
-class ONOFF(Enum):
-    OFF = 0
-    ON = 1
-
 
 class AcquisitionOptions: 
     MOD = auto()
@@ -36,10 +34,38 @@ class HorizontalOptions(Enum):
 @dataclass
 class Horizontal:
     HorizontalOptions = HorizontalOptions
-    VIEW: str
-    RECO: int
+    VIEW: str  = None
+    RECO: int  = None
+    POS: float = None
+    SCA: float = None
+
+class VerticalOptions(Enum):
+    BAN = auto()
+    COUP = auto()
+    CURRENTPRO = auto()
+    INV = auto()
+    POS = auto()
+    PRO = auto()
+    SCA = auto()
+    YUN = auto()
+
+@dataclass
+class Vertical:
+    VerticalOptions: VerticalOptions
+    COUP: str
+    CURRENTPRO: float
+    INV: float
     POS: float
+    PRO: float
     SCA: float
+    YUN: str
+
+class MeasurementOptions(Enum):
+    pass
+
+@dataclass
+class Measurement:
+    MeasurementOptions = MeasurementOptions
 
 class Oscilloscope:
     '''
@@ -55,7 +81,13 @@ class Oscilloscope:
         'RED'    : '\033[91m'
     }
 
-    Aquire: Acquisition
+    Aquire = Acquisition
+    Horizontal = Horizontal
+    Vertical = Vertical
+    # CH1: Channel
+    # CH2: Channel
+    # CH3: Channel
+    # CH4: Channel
 
     def __init__(self, oscil):
         self.osc = oscil
@@ -77,37 +109,17 @@ class Oscilloscope:
         '''
         Use Osc.AcquisitionOptions
         '''
-        
         pass    
 
-    def VerticalParams(self, option=None, set=False): # Move into Channel subclass
+    def VerticalParams(self, option: VerticalOptions, set=False): # Move into Channel subclass
         '''
-        Put None, for all parameters
-        options = {
-            "BAN": "BANdwidth",
-            "COUP":"COUPling",
-            "CURRENTPRO":"CURRENTPRObe",
-            "INV":"INVert",
-            "POS":"POSition",
-            "SCA":"SCAle",
-            "YUN":"YUNit"
-            }
+            Use VerticalOptions
         '''
-        options = {
-            "BAN": "BANdwidth",
-            "COUP":"COUPling",
-            "CURRENTPRO":"CURRENTPRObe",
-            "INV":"INVert",
-            "POS":"POSition",
-            "SCA":"SCAle",
-            "YUN":"YUNit"
-            }
         if option == None:
-            return self.osc.query(f'CH{self.channel}?').strip().split(';')
-        if options[option]:
-            if set:
-                self.osc.write(f'CH{self.channel}:{option} {set}')
-            return self.osc.query(f'CH{self.channel}:{option}?')
+            return self.osc.query(f'CH{self.activeChannel}?').strip().split(';')
+        if set:
+            self.osc.write(f'CH{self.activeChannel}:{option.name} {set}')
+        return self.osc.query(f'CH{self.activeChannel}:{option.name}?')
         
     def HorizontalParams(self, option: HorizontalOptions = None, set=False):
         '''
@@ -121,30 +133,62 @@ class Oscilloscope:
             return self.osc.query("HOR?")
         if set:
             self.osc.write(f'HOR:{option.name} {set}')
-        return HorizontalOptionsTypes.get(option)(
-            self.osc.query(f'HOR:{option.name}?')
-            )
+        return getattr(self.Horizontal, option.name) or self.osc.query(f'HOR:{option.name}?')
 
     def curvInit(self):
         self.osc.write("DAT INIT")
-        self.osc.write(f"DAT:SOU CH{self.channel}")
+        self.osc.write(f"DAT:SOU CH{self.activeChannel}")
         self.osc.write("DAT:WID 1")
         self.osc.write("DAT:ENC RPB")
 
-    def CURV(self):
+    def CURV(self) -> List:
         return self.osc.query_binary_values("CURV?",'B')
 
     def print(self, value, name: str = ''):
         if not name:
-            print(f'{self.color}Channel {self.Channel} info:\033[0m {value}')
+            print(f'{self.color}Channel {self.activeChannel} info:\033[0m {value}')
         else:
             print(f'{self.color}{name}:\033[0m {value}')
         
     def __del__(self):
         self.osc.close()
         print('Connection to oscilloscope closed')
+
+# Sweep Expansion
+def findSweep(o: Oscilloscope, channel:int = 4) -> Tuple[int, float, float]:
+    '''
+    Given an oscilloscope object, returns a tuple with 
+    (sweep expansion, volts per pixel, and seconds per pixel)
+    '''
+    divsPerScreen = 10
+    o.setChannel(4)
+    o.curvInit()
+    o.CURV()
+    voltsPerPix= float(o.VerticalParams(VerticalOptions.SCA))*8/255 # 255 depends on WIDTH 1
+    secondsPerPix=float(o.HorizontalParams(HorizontalOptions.SCA))/float(o.HorizontalParams(HorizontalOptions.RECO))*divsPerScreen
     
-if __name__ == "__main__":
+    #Slope in Pix
+    sweepCurv = o.CURV()
+    sweepCurv = [sum(sweepCurv[0+10*i:10+10*i])/10 for i in range(len(sweepCurv)//10)]
+
+    slopeSweep = np.gradient(sweepCurv)/10
+    slopeSweep= slopeSweep[slopeSweep>0]
+    sweepAvg=np.mean(slopeSweep)
+    #slope in Volts per Second
+    sweep=sweepAvg*voltsPerPix/secondsPerPix
+    # o.print("VOLTS per SECOND", sweep)
+    # o.print("SECONDS per 15V sweep", 15/sweep)
+    expansions = [1,2,5,10,20,50,100]
+    o.HorizontalParams(HorizontalOptions.POS)
+    # o.print("hScale", float(o.HorizontalParams(Osc.HorizontalOptions.SCA)))
+    # print(0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) )
+    expansion = expansions[np.argmin(np.abs( # index of minimum value of absolute value of difference in risetime options and calculated risetime
+            0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) 
+        ))]
+    # o.print("SweepExpansion", expansion)
+    return expansion, voltsPerPix, secondsPerPix
+
+def main():
     import pyvisa
     rm = pyvisa.ResourceManager()
     o = Oscilloscope(rm.open_resource(rm.list_resources()[0]))
@@ -152,3 +196,6 @@ if __name__ == "__main__":
     o.setChannel(1)
     # o.HorizontalParams(HorOptions.SCA, 1E-2)
     # print(o.HorizontalParams())
+
+if __name__ == "__main__":
+    pass
