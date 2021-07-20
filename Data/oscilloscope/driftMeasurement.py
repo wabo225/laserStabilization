@@ -11,7 +11,7 @@ wavPerXPix = lambda o : float(o.HorizontalParams("SCA"))/float(o.HorizontalParam
 
 def getXofPeak(oscilloscope):
     # Add the ability to convert this number into a usable number matching the wavemeter?
-    curv = oscilloscope.query_binary_values("CURV?",'B') # unsigned char: C standard integer
+    curv = oscilloscope.query_binary_values("CURV?",'H') # unsigned char: C standard integer
     curv = np.array(curv)
     xpix = curv.argmax()
     # oscopeScreenScale = queryScale(oscilloscope)/2500 #timeperpixel
@@ -34,27 +34,28 @@ dlc = rm.open_resource(rm.list_resources()[2]) # Again. This will very likely be
 # Initialize CURV
 oscilloscope.write("DAT INIT")
 oscilloscope.write("DAT:SOU CH4")
-oscilloscope.write("DAT:WID 1")
+oscilloscope.write("DAT:WID 2")
 oscilloscope.write("DAT:ENC RPB") # set oscilloscope to send unsigned char 
 
 print(oscilloscope.query("DAT?"))
 # print(oscilloscope.query("WFMPre?"))
 
 # change these values 
-minutes = 15
-timeBetween = .15 # >= .1 min = 6 sec
+minutes = 10
+timeBetween = .2 # >= .1 min = 6 sec
 time0 = time.time()
 startingPixel = getXofPeak(oscilloscope)
-file = open('data\DriftLockingDataPID1'+str(date.today())+'.csv','w')  # filename
+file = open('data\DriftLockingDataPID'+str(date.today())+'.csv','w')  # filename
 for i in np.arange(0, minutes, timeBetween):
     x = getXofPeak(oscilloscope)
-    temp = paramRef(dlc, "'laser1:dl:tc:temp-act")
-    out = str(round(time.time() - time0,3)) + ', ' + str(x) + ', ' + temp + '\n'
+    # temp = paramRef(dlc, "'laser1:dl:tc:temp-act")
+    out = str(round(time.time() - time0,3)) + ', ' + str(x) + '\n'
     print(out, end='')
     file.write(out)
     time.sleep(timeBetween*60)
 
 file.close()
 oscilloscope.close()
+dlc.close()
 
 # a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
