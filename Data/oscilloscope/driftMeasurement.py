@@ -8,6 +8,11 @@ from Tektronics import Oscilloscope as Osc
 from toptica.lasersdk.dlcpro.v1_9_0 import DLCpro, SerialConnection
 # import asyncio
 
+def delta_frequency(delta_pixels, scale, expansion):
+    expansions = {'1':467.2578713474481, '2':236.221920452312, '5':95.57796824314684}
+    pixelsPerDivision = 250
+    return expansions['5']*float(delta_pixels)*float(scale)/pixelsPerDivision
+
 def main():
     # Visa Connection Creation
     rm = pyvisa.ResourceManager()
@@ -15,7 +20,7 @@ def main():
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
 
-    file = open('data\FrequencyDrift' +str(date.today())+'noscan.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'trail3.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
@@ -25,8 +30,6 @@ def main():
     print("Set Current, "+sys.argv[1]+'\n')
     file.write("Power (mW), "+sys.argv[2]+'\n')
     print("Power (mW), "+sys.argv[2]+'\n')
-    
-
     file.write('t (s), Frequency Drift (GHz), Active Current (mA) \n')
 
     # change these values 
@@ -37,15 +40,14 @@ def main():
     o.curvInit()
     o.write("ACQ:MOD AVE")
     o.write("ACQ:NUMAV 128")
-    
-    def delta_frequency(delta_pixels, scale, expansion):
-        expansions = {'1':467.2578713474481, '2':236.221920452312, '5':95.57796824314684}
-        pixelsPerDivision = 250
-        return expansions['5']*float(delta_pixels)*float(scale)/pixelsPerDivision
 
     time0 = time.time()
     x_init = np.argmax(o.CURV())
     with DLCpro(SerialConnection('COM4')) as dlc:
+        file.write('P,'+ str(dlc.laser1.dl.lock.pid2.gain.p.get())+'\n')
+        file.write('I,'+ str(dlc.laser1.dl.lock.pid2.gain.i.get())+'\n')
+        file.write('D,'+ str(dlc.laser1.dl.lock.pid2.gain.d.get())+'\n')
+        file.write('All,'+ str(dlc.laser1.dl.lock.pid2.gain.all.get())+'\n')
         for i in np.arange(0, duration, timeBetween):
             delta_pixels = np.argmax(o.CURV()) - x_init
             dnu = delta_frequency(delta_pixels, scale, expansion)
