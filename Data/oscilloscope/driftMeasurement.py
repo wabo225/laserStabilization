@@ -20,16 +20,16 @@ def main():
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
 
-    file = open('data\FrequencyDrift' +str(date.today())+'trail3.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'trial4.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
     file.write("Sweep Expansion, "+ str(expansion) + '\n')
     print("Sweep Expansion, "+ str(expansion))
-    file.write("Set Current, "+sys.argv[1]+'\n')
-    print("Set Current, "+sys.argv[1]+'\n')
-    file.write("Power (mW), "+sys.argv[2]+'\n')
-    print("Power (mW), "+sys.argv[2]+'\n')
+    # file.write("Set Current, "+sys.argv[1]+'\n')
+    # print("Set Current, "+sys.argv[1]+'\n')
+    # file.write("Power (mW), "+sys.argv[1]+'\n')
+    # print("Power (mW), "+sys.argv[1]+'\n')
     file.write('t (s), Frequency Drift (GHz), Active Current (mA) \n')
 
     # change these values 
