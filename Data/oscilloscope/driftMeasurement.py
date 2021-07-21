@@ -1,30 +1,36 @@
+from numpy.lib.shape_base import expand_dims
 import pyvisa
 import time
 import numpy as np
 from datetime import date
 import sys
-# from Tektronics.FPgetSweep import findSweep
 from Tektronics import Oscilloscope as Osc
+from toptica.lasersdk.dlcpro.v1_9_0 import DLCpro, SerialConnection
+# import asyncio
 
 def main():
     # Visa Connection Creation
     rm = pyvisa.ResourceManager()
-    resources = rm.list_resources()
+    # resources = rm.list_resources()
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
 
-    # dlc = rm.open_resource(rm.list_resources()[2]) # Again. This will very likely be wrong if this code is run on any other computer.
-    
-    file = open('data\Drift' +str(date.today())+'.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'trail2.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
     file.write("Sweep Expansion, "+ str(expansion) + '\n')
     print("Sweep Expansion, "+ str(expansion))
-    file.write('t (s), Pixel\n')
+    file.write("Set Current, "+sys.argv[1]+'\n')
+    print("Set Current, "+sys.argv[1]+'\n')
+    file.write("Power (mW), "+sys.argv[2]+'\n')
+    print("Power (mW), "+sys.argv[2]+'\n')
+    
+
+    file.write('t (s), Frequency Drift (GHz), Active Current (mA) \n')
 
     # change these values 
-    duration = 1 # minutes
+    duration = 15 # minutes
     timeBetween = .2 # >= .1 min = 6 sec
     
     o.setChannel(4) # set channel for curv
@@ -32,22 +38,25 @@ def main():
     o.write("ACQ:MOD AVE")
     o.write("ACQ:NUMAV 128")
     
-    delta_wavelength = lambda delta_pixels, scale, expansion : 1.215E-8/250 * (delta_pixels * scale)/expansion
+    def delta_frequency(delta_pixels, scale, expansion):
+        expansions = {'1':467.2578713474481, '2':236.221920452312, '5':95.57796824314684}
+        pixelsPerDivision = 250
+        return expansions[str(expansion)]*float(delta_pixels)*float(scale)/pixelsPerDivision
 
     time0 = time.time()
     x_init = np.argmax(o.CURV())
-    for i in np.arange(0, duration, timeBetween):
-        delta_pixels = np.argmax(o.CURV()) - x_init
-        dlambda = delta_wavelength(delta_pixels, scale, expansion)
-        # temp = paramRef(dlc, "'laser1:dl:tc:temp-act")
-        out = str(round(time.time() - time0,3)) + ', ' + str(x) + '\n'
-        print(out, end='')
-        file.write(out)
-        time.sleep(timeBetween*60)
+    with DLCpro(SerialConnection('COM4')) as dlc:
+        for i in np.arange(0, duration, timeBetween):
+            delta_pixels = np.argmax(o.CURV()) - x_init
+            dnu = delta_frequency(delta_pixels, scale, expansion)
+            act_curr = dlc.laser1.dl.cc.current_act.get()
+            out = str(round(time.time() - time0,3)) + ', ' + str(dnu) + ', ' + str(act_curr) + '\n'
+            print(out, end='')
+            file.write(out)
+            time.sleep(timeBetween*60)
 
     file.close()
     oscilloscope.close()
-    # dlc.close()
 
 if __name__ == '__main__':
     main()

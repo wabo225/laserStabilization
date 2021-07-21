@@ -1,79 +1,54 @@
-from numpy.lib.shape_base import expand_dims
 import pyvisa
 import numpy as np
 from datetime import date
-from matplotlib import pyplot as plt
+import time
 
 from Tektronics import Oscilloscope as Osc
 divsPerScreen = 10
+fsr=1.5E9 # Hz
 
-secondsPerPixel = lambda o : float(o.HorizontalParams(Osc.HorOptions.SCA))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
+secondsPerPixel = lambda o : float(o.HorizontalParams(Osc.HorizontalOptions.SCA))/float(o.HorizontalParams(Osc.HorizontalOptions.RECO))*divsPerScreen
 
 def wavelengthPerSecond(o):
     # distance between FP peaks two peaks must be on either side of split
     o.setChannel(3)
     o.curvInit()
     curv = o.CURV()
-    splitCurve= np.split(curv,20)
+    splitCurve= np.split(curv,2)
     left= np.argmax(splitCurve[0])
     right= np.argmax(splitCurve[1])
-    wavPerPix= 3.045*10**-12/(1250-left + right)
+    wavPerPix= 3.045*10**-12/(1250-left + right) # most likely wrong wavlength conversion
     timeScale=secondsPerPixel(o)
     return wavPerPix/timeScale
 
-def sweepWLChange(o):
-    return [findSweep(o),wavelengthPerSecond]
-
+def frequencyPerSecond(o: Osc.Oscilloscope):
+    # distance between FP peaks two peaks must be on either side of split
+    o.setChannel(4)
+    o.curvInit()
+    curv = o.CURV()
+    splitCurve= np.split(np.array(curv),2)
+    left= np.argmax(splitCurve[0])
+    right= np.argmax(splitCurve[1])
+    freqPerPix= fsr/(1250-left + right)
+    timeScale=secondsPerPixel(o)
+    return freqPerPix/timeScale
 
 # Visa Connection Creation
 rm = pyvisa.ResourceManager()
 print(rm.list_resources())
 o = Osc.Oscilloscope(rm.open_resource(rm.list_resources()[0])) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
+# print("Seconds per Pixel: " + secondsPerPixel)
 
+# def wavPerSecTest(o):
+#     file = open('data\sweepExpansionScale'+str(date.today())+'.csv','w')
 
-# Sweep Expansion
-def findSweep(o):
-    o.setChannel(3)
-    o.curvInit()
-    o.CURV()
-    voltsPerPix= float(o.VerticalParams(Osc.VerticalOptions.SCA))*8/255
-    secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
-    
-    #Slope in Pix
-    sweepCurv = o.CURV()
-    sweepCurv = [sum(sweepCurv[0+10*i:10+10*i])/10 for i in range(len(sweepCurv)//10)]
-
-    slopeSweep = np.gradient(sweepCurv)/10
-    slopeSweep= slopeSweep[slopeSweep>0]
-    sweepAvg=np.mean(slopeSweep)
-    #slope in Volts per Second
-    sweepAvg=sweepAvg*voltsPerPix/secondsPerPix
-    
-    return sweepAvg
-
-sweep=findSweep(o)
-# o.print("VOLTS per SECOND", sweep)
-# o.print("SECONDS per 15V sweep", 15/sweep)
-expansions = [1,2,5,10,20,50,100]
-o.HorizontalParams(Osc.HorOptions.POS)
-o.print("hScale", float(o.HorizontalParams(Osc.HorOptions.SCA)))
-print(0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) )
-o.print("SweepExpansion", 
-    expansions[np.argmin(np.abs( # index of minimum value of absolute value of difference in risetime options and calculated risetime
-        0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) 
-    )
-)])
-
-def wavPerSecTest(o):
-    file = open('data\sweepExpansionScale'+str(date.today())+'.csv','w')
-
-"""a=[]
+a=[]
 for i in range(0,20):
-    a.append(wavelengthPerPixel(oscilloscope)/timePerPixel(oscilloscope))
+    a.append(frequencyPerSecond(o))
     time.sleep(1)
 a=np.array(a)
-print("mean:", np.mean(a))
-print("std :", np.std(a))"""
+print("mean:", np.mean(a)*10**-9 , 'GHz')
+print("std :", np.std(a)*10**-9 , 'GHz')
  
 
 # a.tofile('data\DriftData'+str(date.today())+'.csv', sep=',')
