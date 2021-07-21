@@ -15,7 +15,7 @@ def main():
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
 
-    file = open('data\FrequencyDrift' +str(date.today())+'trail2.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'noscan.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
@@ -31,7 +31,7 @@ def main():
 
     # change these values 
     duration = 15 # minutes
-    timeBetween = .2 # >= .1 min = 6 sec
+    timeBetween = .25 # >= .1 min = 6 sec
     
     o.setChannel(4) # set channel for curv
     o.curvInit()
@@ -41,7 +41,7 @@ def main():
     def delta_frequency(delta_pixels, scale, expansion):
         expansions = {'1':467.2578713474481, '2':236.221920452312, '5':95.57796824314684}
         pixelsPerDivision = 250
-        return expansions[str(expansion)]*float(delta_pixels)*float(scale)/pixelsPerDivision
+        return expansions['5']*float(delta_pixels)*float(scale)/pixelsPerDivision
 
     time0 = time.time()
     x_init = np.argmax(o.CURV())
