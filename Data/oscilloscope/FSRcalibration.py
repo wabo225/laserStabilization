@@ -36,7 +36,7 @@ def findSweep(o):
     o.setChannel(3)
     o.curvInit()
     o.CURV()
-    voltsPerPix= float(o.VerticalParams("SCA"))*8/255
+    voltsPerPix= float(o.VerticalParams(Osc.VerticalOptions.SCA))*8/255
     secondsPerPix=float(o.HorizontalParams("SCA"))/float(o.HorizontalParams(Osc.HorOptions.RECO))*divsPerScreen
     
     #Slope in Pix
@@ -63,6 +63,9 @@ o.print("SweepExpansion",
         0.01*np.array(expansions)-np.array([15/sweep for i in range(len(expansions))]) 
     )
 )])
+
+def wavPerSecTest(o):
+    file = open('data\sweepExpansionScale'+str(date.today())+'.csv','w')
 
 """a=[]
 for i in range(0,20):

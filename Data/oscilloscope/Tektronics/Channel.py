@@ -17,7 +17,7 @@ class VerticalOptions(Enum):
     YUN = auto()
 
 VerticalOptionTypes = {
-    "BAN" : Oscilloscope.ONOFF,
+    "BAN" : str,
     "COUP" : str,
     "CURRENTPRO" : float,
     "INV" : float,
