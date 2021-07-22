@@ -1,7 +1,7 @@
 # from Channel import Channel
 import os
 from enum import Enum, auto
-from typing import List, Tuple
+from typing import Any, List, Tuple
 from dataclasses import dataclass
 import numpy as np
 # from Channel import Channel
@@ -144,19 +144,19 @@ class Oscilloscope:
     def CURV(self) -> List:
         return self.osc.query_binary_values("CURV?",'H')
 
-    def write(self, command):
+    def write(self, command: str) -> None:
         '''
         a function for writing directly to the oscilloscope.
         internal use
         '''
         self.osc.write(command)
     
-    def query(self, command):
+    def query(self, command: str) -> Any:
         '''
         a function for querying direct to the oscilloscope.
         internal use
         '''
-        self.osc.query(command+'?')
+        self.osc.query(command)
     
     def print(self, value, name: str = ''):
         if not name:
