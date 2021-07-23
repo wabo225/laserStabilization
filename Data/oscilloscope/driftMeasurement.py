@@ -18,7 +18,7 @@ def main():
     # resources = rm.list_resources()
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
-    file = open('data\FrequencyDrift' +str(date.today())+'trial7.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'trial9TOF.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
@@ -30,7 +30,7 @@ def main():
     # print("Power (mW), "+sys.argv[1]+'\n')
 
     # change these values 
-    duration = 45 # minutes
+    duration = 15 # minutes
     timeBetween = .25 # >= .1 min = 6 sec
     
     o.setChannel(4) # set channel for curv
@@ -47,14 +47,14 @@ def main():
         file.write('I,'+ str(dlc.laser1.dl.lock.pid2.gain.i.get())+'\n')
         file.write('D,'+ str(dlc.laser1.dl.lock.pid2.gain.d.get())+'\n')
         file.write('All,'+ str(dlc.laser1.dl.lock.pid2.gain.all.get())+'\n')
-        file.write('t (s), Frequency Drift (GHz), Active Current (mA), PID2 output (V) \n')
+        file.write('t (s), Frequency Drift (GHz), Active Current (mA) \n')
         for i in np.arange(0, duration, timeBetween):
             delta_pixels = np.argmax(o.CURV()) - x_init
             dnu = delta_frequency(delta_pixels, scale, expansion)
             act_curr = dlc.laser1.dl.cc.current_act.get()
             piez_curr = dlc.laser1.dl.pc.voltage_act.get()
-            pid2_out = float(o.query("MEASU:IMMED?"))
-            out = str(round(time.time() - time0,3)) + ', ' + str(dnu) + ', ' + str(act_curr) + ', ' + str(pid2_out) + '\n'
+            #pid2_out = float(o.query("MEASU:IMMED?"))
+            out = str(round(time.time() - time0,3)) + ', ' + str(dnu) + ', ' + str(act_curr) + ', ' + '\n'
             print(out, end='')
             file.write(out)
             time.sleep(timeBetween*60)
