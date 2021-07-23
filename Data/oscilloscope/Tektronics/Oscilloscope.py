@@ -1,10 +1,10 @@
-# from Channel import Channel
 import os
 from enum import Enum, auto
 from typing import List, Tuple
 from dataclasses import dataclass
 import numpy as np
-# from Channel import Channel
+from Channel import *
+from Horizontal import *
 
 os.system('color')
 
@@ -24,41 +24,41 @@ class Acquisition:
     STATE: int
     STOPA: int
 
-class HorizontalOptions(Enum):
-    VIEW = auto()
-    RECO = auto()
-    POS = auto()
-    SCA = auto()
-    DEL = auto()
+# class HorizontalOptions(Enum):
+#     VIEW = auto()
+#     RECO = auto()
+#     POS = auto()
+#     SCA = auto()
+#     DEL = auto()
 
-@dataclass
-class Horizontal:
-    HorizontalOptions = HorizontalOptions
-    VIEW: str  = None
-    RECO: int  = None
-    POS: float = None
-    SCA: float = None
+# @dataclass
+# class Horizontal:
+#     HorizontalOptions = HorizontalOptions
+#     VIEW: str  = None
+#     RECO: int  = None
+#     POS: float = None
+#     SCA: float = None
 
-class VerticalOptions(Enum):
-    BAN = auto()
-    COUP = auto()
-    CURRENTPRO = auto()
-    INV = auto()
-    POS = auto()
-    PRO = auto()
-    SCA = auto()
-    YUN = auto()
+# class VerticalOptions(Enum):
+#     BAN = auto()
+#     COUP = auto()
+#     CURRENTPRO = auto()
+#     INV = auto()
+#     POS = auto()
+#     PRO = auto()
+#     SCA = auto()
+#     YUN = auto()
 
-@dataclass
-class Vertical:
-    VerticalOptions: VerticalOptions
-    COUP: str
-    CURRENTPRO: float
-    INV: float
-    POS: float
-    PRO: float
-    SCA: float
-    YUN: str
+# @dataclass
+# class Vertical:
+#     VerticalOptions: VerticalOptions
+#     COUP: str
+#     CURRENTPRO: float
+#     INV: float
+#     POS: float
+#     PRO: float
+#     SCA: float
+#     YUN: str
 
 class MeasurementOptions(Enum):
     pass
@@ -83,11 +83,11 @@ class Oscilloscope:
 
     Aquire = Acquisition
     Horizontal = Horizontal
-    Vertical = Vertical
-    # CH1: Channel
-    # CH2: Channel
-    # CH3: Channel
-    # CH4: Channel
+    # Vertical = Vertical
+    CH1: Channel =  Channel(1)
+    CH2: Channel =  Channel(2)
+    CH3: Channel =  Channel(3)
+    CH4: Channel =  Channel(4)
 
     def __init__(self, oscil):
         self.osc = oscil
@@ -111,15 +111,15 @@ class Oscilloscope:
         '''
         pass    
 
-    def VerticalParams(self, option: VerticalOptions, set=False): # Move into Channel subclass
-        '''
-            Use VerticalOptions
-        '''
-        if option == None:
-            return self.osc.query(f'CH{self.activeChannel}?').strip().split(';')
-        if set:
-            self.osc.write(f'CH{self.activeChannel}:{option.name} {set}')
-        return self.osc.query(f'CH{self.activeChannel}:{option.name}?')
+    # def VerticalParams(self, option: VerticalOptions, set=False): # Move into Channel subclass
+    #     '''
+    #         Use VerticalOptions
+    #     '''
+    #     if option == None:
+    #         return self.osc.query(f'CH{self.activeChannel}?').strip().split(';')
+    #     if set:
+    #         self.osc.write(f'CH{self.activeChannel}:{option.name} {set}')
+    #     return self.osc.query(f'CH{self.activeChannel}:{option.name}?')
         
     def HorizontalParams(self, option: HorizontalOptions = None, set=False):
         '''
