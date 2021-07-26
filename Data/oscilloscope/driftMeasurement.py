@@ -17,7 +17,7 @@ def main():
     # resources = rm.list_resources()
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
-    file = open('data\FrequencyDrift' +str(date.today())+'trial11TOF.csv','w')  # filename
+    file = open('data\FrequencyDrift' +str(date.today())+'trial13noLock.csv','w')  # filename
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
