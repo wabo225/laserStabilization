@@ -10,7 +10,7 @@ These instructions will guide you through the process of top of fringe locking o
 
 ### 1. Construct the Saturated Absorption Experiement
 
-A simple Saturated Absorption layout should be constructed with a portion of the light the laser emits. This layout **minimizes backreflection** into the rest of the experiment (though you can **use backreflection to align the mirror** to get counterpropogation through the gas cell). 
+A simple Saturated Absorption layout should be constructed with a portion of the laser light. This layout **minimizes backreflection** into the rest of the experiment (though you can **use backreflection to align the mirror** to get counterpropogation through the gas cell). 
 
 ![Beam Return Trip](https://user-images.githubusercontent.com/42518694/127022739-a42df640-fe1b-452a-abd3-07df6320bdae.PNG)
 
