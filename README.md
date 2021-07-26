@@ -41,6 +41,7 @@ $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
 
 ---
 ### 4. Use Modulation.
+   - Zoom in further on the location you wish to lock. This waveform is from the right side of the one given from part 3.
    > Scan > Parameters > Lock Settings > Lock Type > Top of Fringe
    - Open the *LIR panel* on the scan screen. The middle bottom virtual button opens a dropdown.
    - Set the phase to $~30\degree$, the modulation frequency to $22000 \text{ Hz}$, and the modulation amplitude to $0.04 \text{ mA}$. These values may not be the same for a different layout, but they will likely be close. 
