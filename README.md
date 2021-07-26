@@ -48,7 +48,7 @@ $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
 ![Modulation](https://user-images.githubusercontent.com/42518694/127036431-1a8ea694-5c03-47b9-90e4-8a505549e167.png)
 ---
 ### 5. Visualizing the error.
-   - The laser does not support outputing the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputed by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:
+   - The laser does not support outputting the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputed by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:
 $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) = error(t)$$
 
    - Set the output of PID1 to output channel B.
