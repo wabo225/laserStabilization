@@ -16,8 +16,8 @@ In order to reduce the power of the probe beam, we propose adding a 30% attenuat
 $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
 
 ---
-1. Plug the photodiode into one of the Fine In ports on the front of the DLCPro controller.
-2. Enable a scan. 
+### 2. Plug the photodiode into one of the Fine In ports on the front of the DLCPro controller.
+### 3. Enable a scan. 
    - This will cause the laser to sweep through a range of wavelengths by varying the voltage to the piezo. 
    - Press the second button from the top on the left to open the scan window.
    - The virtual button in the top middle will enable a scan, using the scan offset and scan amplitude as a range. *The laser has software to prevent you sending too much voltage to the piezoactuator.*
@@ -29,13 +29,14 @@ $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
       - `Scan > Parameters > Display Settings > Auxillary Trace Selection <- None`
     - Use two-finger zoom and vertical or horizontal swipes to locate this signal.
     
-    ![Saturated Absorption Signal](https://user-images.githubusercontent.com/42518694/127026411-b603b415-c3aa-4eea-a6c7-cd5e6a522fe7.jpg)
+    <!-- ![Saturated Absorption Signal](https://user-images.githubusercontent.com/42518694/127026411-b603b415-c3aa-4eea-a6c7-cd5e6a522fe7.jpg) -->
+    ![SaturatedAbsorption](https://user-images.githubusercontent.com/42518694/127036425-a6346557-9d11-498c-95a6-28c039012a3a.PNG)
 
 4. Use Modulation.
    - `Scan > Parameters > Lock Settings > Lock Type > Top of Fringe`
    - Open the *LIR panel* on the scan screen. The middle bottom virtual button opens a dropdown.
    - Set the phase to $~30\degree$, the modulation frequency to $22000 \text{ Hz}$, and the modulation amplitude to $0.04 \text{ mA}$. These values may not be the same for a different layout, but they will likely be close. 
-   - **ATTACH A PICTURE OF MODULATION**
+![Modulation](https://user-images.githubusercontent.com/42518694/127036431-1a8ea694-5c03-47b9-90e4-8a505549e167.png)
 5. Visualizing the error.
    - The laser does not support outputing the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputed by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:
 $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) = error(t)$$
@@ -51,4 +52,28 @@ $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) =
      - `Scan > Parameters > Analog Remote Control (ARC) > PC > Enable <- 1`
      - `Analog Remote Control (ARC) > Singal Input <- Fine In 2`
      - `Analog Remote Control (ARC) > Factor > 1.0000 V/V`
-7. 
+7. Applying PID Gains. 
+   - Ensure the output of PID2 is directed to PC (piezo control)
+   - A set of constants we found that worked well was
+   
+   |||
+   |---|---|
+   | P | 0.001 V/V |
+   | I | 0.003 V/V/ms|
+   | D | 0.000 V/V*$\mu$s|
+   | Gain | 1.000|
+   - PID2 needs to be set as sign positive or sign negative. This depends on the slope of your modulated signal. **If the slope of the modulated signal is negative at the point you wish to lock, set PID2 to sign positive and vise versa.**
+   - `Scan > Parameters > PID2 > Sign Positive <- 1`
+   - `1` for sign positve, `0` for sign negative
+
+8. Activating the Lock
+   - On the LIR Scan screen, locate the peak you wish to lock. Simply click it and the now enabled lock button on the left.
+9. Monitoring the lock.
+   - Certainly, if the error signal becomes large and is not sent back to zero by the PID controller, you may need to reevalute your PID constants or modulation settings.
+   - Use a camera to monitor spontaneous emission
+   - Finally, use a Fabry-Perot Interferometer. Display the transmission through the device on an oscilloscope and run `python .\Data\oscilloscope\driftMeasurement.py`
+     - This code requires a significant amount of libraries and drivers.
+     - `pip install pyvisa`
+     - pyvisa needs a suitable usb driver to communicate with the oscilloscope. This can be found on the tektronics website
+     - `pip install toptica-lasersdk` 
+     - `pip install numpy`
