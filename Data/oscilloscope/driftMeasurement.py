@@ -54,7 +54,7 @@ def main():
             act_curr = dlc.laser1.dl.cc.current_act.get()
             piez_curr = dlc.laser1.dl.pc.voltage_act.get()
             #pid2_out = float(o.query("MEASU:IMMED?"))
-            out = str(round(time.time() - time0,3)) + ', ' + str(dnu) + ', ' + str(act_curr) + ', ' + '\n'
+            out = str(round(time.time() - time0,3)) + ', ' + str(dnu) + ', ' + str(act_curr) + '\n'
             print(out, end='')
             file.write(out)
             time.sleep(timeBetween*60)
