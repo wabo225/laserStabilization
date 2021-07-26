@@ -47,58 +47,45 @@ Date : 7/26/21</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>I</mi><mrow><mi>p</mi><mi>r</mi><mi>o</mi><mi>b</mi><mi>e</mi></mrow></msub><mo>=</mo><mo stretchy="false">(</mo><mn>0.3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.3</mn><mo stretchy="false">)</mo><msub><mi>I</mi><mrow><mi>p</mi><mi>u</mi><mi>m</mi><mi>p</mi></mrow></msub><mo>≈</mo><mo stretchy="false">(</mo><mn>10</mn><mi mathvariant="normal">%</mi><mo stretchy="false">)</mo><msub><mi>I</mi><mrow><mi>p</mi><mi>u</mi><mi>m</mi><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight">ro</span><span class="mord mathnormal mtight">b</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mopen">(</span><span class="mord">0.3</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">0.3</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mopen">(</span><span class="mord">10%</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></p>
 <hr>
-<h3 id="2-plug-the-photodiode-into-one-of-the-fine-in-ports-on-the-front-of-the-dlcpro-controller">2. Plug the photodiode into one of the Fine In ports on the front of the DLCPro controller.</h3>
-<h3 id="3-enable-a-scan">3. Enable a scan.</h3>
+<h3 id="2-enable-a-scan">2. Enable a scan.</h3>
 <ul>
+<li>Plug the photodiode into one of the Fine In ports on the front of the DLCPro controller.</li>
 <li>This will cause the laser to sweep through a range of wavelengths by varying the voltage to the piezo.</li>
 <li>Press the second button from the top on the left to open the scan window.</li>
 <li>The virtual button in the top middle will enable a scan, using the scan offset and scan amplitude as a range. <em>The laser has software to prevent you sending too much voltage to the piezoactuator.</em></li>
 </ul>
-<ol start="3">
-<li>
-<p>Find the signal.</p>
-<ul>
-<li>Your lock-input signal should be chosen. (parameter button is the book on the bottom left)
-<ul>
-<li><code>Scan &gt; Parameters &gt; Lock Settings &gt; Lock Input Signal &lt;- Fine In 1</code></li>
-</ul>
-</li>
-<li>It is possible that the screen is displaying more or different information.
-<ul>
-<li><code>Scan &gt; Parameters &gt; Display Settings &gt; Input Trace Selection &lt;- Lock Input</code></li>
-<li><code>Scan &gt; Parameters &gt; Display Settings &gt; Auxillary Trace Selection &lt;- None</code></li>
-</ul>
-</li>
-<li>Use two-finger zoom and vertical or horizontal swipes to locate this signal.</li>
-</ul>
- <!-- ![Saturated Absorption Signal](https://user-images.githubusercontent.com/42518694/127026411-b603b415-c3aa-4eea-a6c7-cd5e6a522fe7.jpg) -->
+<hr>
+<h3 id="3-find-the-signal">3. Find the signal.</h3>
+<pre><code>- Your lock-input signal should be chosen. (parameter button is the book on the bottom left)
+  - `Scan &gt; Parameters &gt; Lock Settings &gt; Lock Input Signal &lt;- Fine In 1`
+- It is possible that the screen is displaying more or different information.
+  - `Scan &gt; Parameters &gt; Display Settings &gt; Input Trace Selection &lt;- Lock Input`
+  - `Scan &gt; Parameters &gt; Display Settings &gt; Auxillary Trace Selection &lt;- None`
+- Use two-finger zoom and vertical or horizontal swipes to locate this signal.
+</code></pre>
+<hr>
 <p><img src="https://user-images.githubusercontent.com/42518694/127036425-a6346557-9d11-498c-95a6-28c039012a3a.PNG" alt="SaturatedAbsorption"></p>
-</li>
-<li>
-<p>Use Modulation.</p>
+<hr>
+<h3 id="4-use-modulation">4. Use Modulation.</h3>
 <ul>
 <li><code>Scan &gt; Parameters &gt; Lock Settings &gt; Lock Type &gt; Top of Fringe</code></li>
 <li>Open the <em>LIR panel</em> on the scan screen. The middle bottom virtual button opens a dropdown.</li>
 <li>Set the phase to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext> </mtext><mn>30</mn><mi mathvariant="normal">°</mi></mrow><annotation encoding="application/x-tex">~30\degree</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mspace nobreak"> </span><span class="mord">30°</span></span></span></span>, the modulation frequency to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>22000</mn><mtext> Hz</mtext></mrow><annotation encoding="application/x-tex">22000 \text{ Hz}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">22000</span><span class="mord text"><span class="mord"> Hz</span></span></span></span></span>, and the modulation amplitude to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.04</mn><mtext> mA</mtext></mrow><annotation encoding="application/x-tex">0.04 \text{ mA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">0.04</span><span class="mord text"><span class="mord"> mA</span></span></span></span></span>. These values may not be the same for a different layout, but they will likely be close.
 <img src="https://user-images.githubusercontent.com/42518694/127036431-1a8ea694-5c03-47b9-90e4-8a505549e167.png" alt="Modulation"></li>
 </ul>
-</li>
-<li>
-<p>Visualizing the error.</p>
+<hr>
+<h3 id="5-visualizing-the-error">5. Visualizing the error.</h3>
 <ul>
 <li>The laser does not support outputing the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputed by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:</li>
 </ul>
-</li>
-</ol>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mi>I</mi><mi>D</mi><mn>1</mn><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>∗</mo><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>+</mo><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mn>0</mn><mo>∗</mo><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo><mi>d</mi><mi>τ</mi><mo>+</mo><mn>0</mn><mo>∗</mo><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) = error(t)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord">1</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.455406em;vertical-align:-0.9119499999999999em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5434560000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119499999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span></p>
 <ul>
 <li>Set the output of PID1 to output channel B.</li>
 <li><code>Scan &gt; Parameters &gt; PID1 &gt; Output Channel &gt; Output B</code></li>
 </ul>
-<ol start="6">
-<li>
-<p>(Optional) Visualize the response function.</p>
+<hr>
+<h3 id="6-optional-visualize-the-response-function">6. (Optional) Visualize the response function.</h3>
 <ul>
 <li>PID2 will control the piezoactuator. This is the quickest and most precise avenue of control for the laser. The voltage sent to the piezo actuator will be the voltage at the time of the start of the lock plus value of PID2.</li>
 <li>If you want to visualize the value of PID2, set its output channel to Output A</li>
@@ -112,9 +99,8 @@ Date : 7/26/21</p>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p>Applying PID Gains.</p>
+<hr>
+<h3 id="7-applying-pid-gains">7. Applying PID Gains.</h3>
 <ul>
 <li>Ensure the output of PID2 is directed to PC (piezo control)</li>
 <li>A set of constants we found that worked well was</li>
@@ -150,15 +136,13 @@ Date : 7/26/21</p>
 <li><code>Scan &gt; Parameters &gt; PID2 &gt; Sign Positive &lt;- 1</code></li>
 <li><code>1</code> for sign positve, <code>0</code> for sign negative</li>
 </ul>
-</li>
-<li>
-<p>Activating the Lock</p>
+<hr>
+<h3 id="8-activating-the-lock">8. Activating the Lock</h3>
 <ul>
 <li>On the LIR Scan screen, locate the peak you wish to lock. Simply click it and the now enabled lock button on the left.</li>
 </ul>
-</li>
-<li>
-<p>Monitoring the lock.</p>
+<hr>
+<h3 id="9-monitoring-the-lock">9. Monitoring the lock.</h3>
 <ul>
 <li>Certainly, if the error signal becomes large and is not sent back to zero by the PID controller, you may need to reevalute your PID constants or modulation settings.</li>
 <li>Use a camera to monitor spontaneous emission</li>
@@ -172,8 +156,6 @@ Date : 7/26/21</p>
 </ul>
 </li>
 </ul>
-</li>
-</ol>
 
     </body>
     </html>

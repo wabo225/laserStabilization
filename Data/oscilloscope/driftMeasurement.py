@@ -1,4 +1,3 @@
-from numpy.lib.shape_base import expand_dims
 import pyvisa
 import time
 import numpy as np
