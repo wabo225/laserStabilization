@@ -1,29 +1,8 @@
 import numpy as np
-from typing import Tuple
-from sys import argv, path
+from sys import argv
 import re
 import os.path
 from datetime import datetime
-
-def extractHMS(datestring: str) -> Tuple[int, int, float]: 
-    '''
-
-    This function uses Regular Expressions to separate out the hour, minute, 
-        seconds, and millisecond values from a date string format used in Bristol's
-        Wavemeter.
-    
-    Dates are formatted as: 2021-07-27T14:19:41.147
-    
-    They are found in the first column of the csv, below the column header 
-        labelled Timestamp
-    
-    @param datestring: str
-    @returns: Tuple[int, int, float]  The entries are hours: int, minutes; int, seconds: float
-
-    @todo: this function is coupled with timeTupleToSeconds(), a function that is unlikely to be reused.
-    '''
-    r = re.search(r'^.*T(\d\d):(\d\d):(\d\d).(\d\d\d)', datestring)
-    return int(r.group(1)), int(r.group(2)), round(int(r.group(3)) + int(r.group(4))/1000,3)
 
 def BristolTimestampToPOSIX(datestring: str) -> float:
     '''
@@ -47,7 +26,15 @@ def BristolTimestampToPOSIX(datestring: str) -> float:
 
 def NuViewTimeConverter(pathToFile: str):
     '''
-        This function requires a file formatted by the 
+        This function requires a file formatted by the Bristol wavemeter gui, NuView. In NuView we generate .csv files by pressing File > record (or Alt > Enter > Down > Enter > Enter)
+
+        The file has a first column of timestamps, and optional second, third and fourth columns with headers signifying their contents.
+
+        The function does not return the contents, but rather writes to a new file with the word (copy) in the filename, at the same location.
+
+        @param pathToFile: str  path to file formatted as a NuView Recording csv
+
+        @todo I can imagine some of this code being useful in a statistical analysis library, but in that scenario we don't really need the copied csv. Consider splitting this function into a "write to file" function and a "return numpy object" function
     '''
     if not os.path.isfile(pathToFile):
         print("\n You've given an invalid filename \n")
