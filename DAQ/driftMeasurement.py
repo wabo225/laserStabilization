@@ -2,9 +2,27 @@ import pyvisa
 import time
 import numpy as np
 from datetime import date
-from Tektronics import Oscilloscope as Osc
+from oscilloscope.Tektronics import Oscilloscope as Osc
 from toptica.lasersdk.dlcpro.v1_9_0 import DLCpro, SerialConnection
-# import asyncio
+from os import listdir, path
+import re
+
+
+'''
+    Run this code to measure the amount of frequency drift seen by the Fabry Perot interferometer.
+    @todo: write code to increment the trial number automatically
+'''
+
+# change these values 
+duration = 45 # minutes
+timeBetween = .25 # >= .1 min = 6 sec
+filenameAddendum = ''
+pathToData = '../Data/FrequencyDrift/'
+
+def getNextTrialNumber(pathToData: str):
+    trials = filter(lambda filename : filename.find('trial') != -1, listdir(pathToData))
+    indices = [int(re.search(r'.*trial(\d*)', trial).group(1)) for trial in trials]
+    return max(indices) + 1
 
 def delta_frequency(delta_pixels, scale, expansion):
     expansions = {'1':467.2578713474481, '2':236.221920452312, '5':95.57796824314684}
@@ -17,7 +35,7 @@ def main():
     # resources = rm.list_resources()
     oscilloscope = rm.open_resource(rm.list_resources()[0]) # The Oscilloscope may not always be the first entry, but it has been for our USB Driver
     o = Osc.Oscilloscope(oscilloscope)
-    file = open('data\FrequencyDrift' +str(date.today())+'trial13noLock.csv','w')  # filename
+    file = open(f'{pathToData}{str(date.today())}trial{getNextTrialNumber(pathToData)}{filenameAddendum}.csv','w')
 
     expansion = Osc.findSweep(o)
     scale = o.HorizontalParams(Osc.HorizontalOptions.SCA)
@@ -28,10 +46,6 @@ def main():
     # file.write("Power (mW), "+sys.argv[1]+'\n')
     # print("Power (mW), "+sys.argv[1]+'\n')
 
-    # change these values 
-    duration = 45 # minutes
-    timeBetween = .25 # >= .1 min = 6 sec
-    
     o.setChannel(4) # set channel for curv
     o.curvInit()
     o.write("ACQ:MOD AVE")
