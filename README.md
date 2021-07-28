@@ -10,11 +10,11 @@ These instructions will guide you through the process of top of fringe locking o
 
 ### 1. Construct the Saturated Absorption Experiement
 
-A simple Saturated Absorption layout should be constructed with a portion of the laser light. This layout **minimizes backreflection** into the rest of the experiment (though you can **use backreflection to align the mirror** to for good counterpropogation through the gas cell). 
+A simple Saturated Absorption layout should be constructed with a portion of the laser light. This layout **minimizes back-reflection** into the rest of the experiment (though you can **use backreflection to align the mirror** to for good counter-propogation through the gas cell). 
 
 ![Beam Return Trip](https://user-images.githubusercontent.com/42518694/127022739-a42df640-fe1b-452a-abd3-07df6320bdae.PNG)
 
-In order to reduce the power of the probe beam, we propose adding a 30% attenuator (or non-polarizing beamsplitter and endstops) between the gas cell and the left side mirror.
+In order to reduce the power of the probe beam, we propose adding a 30% attenuator (or non-polarizing beamsplitter and end-stops) between the gas cell and the left side mirror.
 
 $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
 
@@ -48,7 +48,7 @@ $$I_{probe} = (0.3)(0.3)I_{pump} \approx (10\%)I_{pump}$$
 ![Modulation](https://user-images.githubusercontent.com/42518694/127036431-1a8ea694-5c03-47b9-90e4-8a505549e167.png)
 ---
 ### 5. Visualizing the error.
-   - The laser does not support outputting the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputed by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:
+   - The laser does not support outputting the raw error that is sent to the PID controllers. This value however is valuable for tuning. We achieved locking with only one PID controller, so we used the other to monitor the error outputted by the modulation. This was done by setting all constants to 0 on PID 1 except for P=1. Therefore, the equation for PID1 was:
 $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) = error(t)$$
 
    - Set the output of PID1 to output channel B.
@@ -63,7 +63,7 @@ $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) =
       
       > Scan > Parameters > Analog Remote Control (ARC) > PC > Enable <- 1
       
-      > Analog Remote Control (ARC) > Singal Input <- Fine In 2
+      > Analog Remote Control (ARC) > Signal Input <- Fine In 2
       
       > Analog Remote Control (ARC) > Factor > 1.0000 V/V
 ---
@@ -79,13 +79,13 @@ $$ PID1(t) = 1*error(t) + \int_0^t 0*error(\tau)d\tau + 0*\frac{d}{dt}error(t) =
    | Gain | 1.000|
    - PID2 needs to be set as sign positive or sign negative. This depends on the slope of your modulated signal. **If the slope of the modulated signal is negative at the point you wish to lock, set PID2 to sign positive and vise versa.**
      > Scan > Parameters > PID2 > Sign Positive <- 1
-   - `1` for sign positve, `0` for sign negative
+   - `1` for sign positive, `0` for sign negative
 ---
 ### 8. Activating the Lock
    - On the LIR Scan screen, locate the peak you wish to lock. Simply click it and the now enabled lock button on the left.
 --- 
 ### 9. Monitoring the lock.
-   - Certainly, if the error signal becomes large and is not sent back to zero by the PID controller, you may need to reevalute your PID constants or modulation settings.
+   - Certainly, if the error signal becomes large and is not sent back to zero by the PID controller, you may need to re-evalute your PID constants or modulation settings.
    - Use a camera to monitor spontaneous emission
    - Finally, use a Fabry-Perot Interferometer. Display the transmission through the device on an oscilloscope and run `python .\Data\oscilloscope\driftMeasurement.py`
      - This code requires a significant amount of libraries and drivers.
