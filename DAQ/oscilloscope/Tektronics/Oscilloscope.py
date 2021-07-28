@@ -3,8 +3,8 @@ from enum import Enum, auto
 from typing import Any, List, Tuple
 from dataclasses import dataclass
 import numpy as np
-from Channel import *
-from Horizontal import *
+# from Channel import *
+# from Horizontal import *
 
 os.system('color')
 
@@ -24,41 +24,80 @@ class Acquisition:
     STATE: int
     STOPA: int
 
-# class HorizontalOptions(Enum):
-#     VIEW = auto()
-#     RECO = auto()
-#     POS = auto()
-#     SCA = auto()
-#     DEL = auto()
+class HorizontalOptions(Enum):
+    VIEW = auto()
+    RECO = auto()
+    POS = auto()
+    SCA = auto()
+    DEL = auto()
 
-# @dataclass
-# class Horizontal:
-#     HorizontalOptions = HorizontalOptions
-#     VIEW: str  = None
-#     RECO: int  = None
-#     POS: float = None
-#     SCA: float = None
+@dataclass
+class Horizontal:
+    HorizontalOptions = HorizontalOptions
+    VIEW: str  = None
+    RECO: int  = None
+    POS: float = None
+    SCA: float = None
+class COUPling(Enum):
+    AC = auto()
+    DC = auto()
+    GROUND = auto()
 
-# class VerticalOptions(Enum):
-#     BAN = auto()
-#     COUP = auto()
-#     CURRENTPRO = auto()
-#     INV = auto()
-#     POS = auto()
-#     PRO = auto()
-#     SCA = auto()
-#     YUN = auto()
+class Channel():
+    channels = {
+        1: "YELLOW",
+        2: "BLUE",
+        3: "PINK",
+        4: "GREEN",
+    }
 
-# @dataclass
-# class Vertical:
-#     VerticalOptions: VerticalOptions
-#     COUP: str
-#     CURRENTPRO: float
-#     INV: float
-#     POS: float
-#     PRO: float
-#     SCA: float
-#     YUN: str
+    def __init__(self, channel):
+        self.color = self.channels[channel]
+        self.channel = channel
+
+    def VerticalParams(self, option=None, set=False): 
+        '''
+        Put None, for all parameters
+        options = {
+            "BAN": "BANdwidth",
+            "COUP":"COUPling",
+            "CURRENTPRO":"CURRENTPRObe",
+            "INV":"INVert",
+            "POS":"POSition",
+            "SCA":"SCAle",
+            "YUN":"YUNit"
+            }
+        '''
+        # This function is similar to Osc.HorizontalParams Consider making a higher order function
+        # Decided against it since the formatted strings are significantly different
+        if option == None:
+            return self.osc.query(f'CH{self.channel}?')
+        if set:
+            self.osc.write(f'CH{self.channel}:{option.name} {set}')
+        return VerticalOptions.get(option)(
+            self.osc.query(f'CH{self.channel}:{option.name}?')
+        )
+
+class VerticalOptions(Enum):
+    BAN = auto()
+    COUP = auto()
+    CURRENTPRO = auto()
+    INV = auto()
+    POS = auto()
+    PRO = auto()
+    SCA = auto()
+    YUN = auto()
+
+@dataclass
+class Vertical:
+    VerticalOptions: VerticalOptions
+    COUP: str
+    CURRENTPRO: float
+    INV: float
+    POS: float
+    PRO: float
+    SCA: float
+    YUN: str
 
 class MeasurementOptions(Enum):
     pass
@@ -111,15 +150,15 @@ class Oscilloscope:
         '''
         pass    
 
-    # def VerticalParams(self, option: VerticalOptions, set=False): # Move into Channel subclass
-    #     '''
-    #         Use VerticalOptions
-    #     '''
-    #     if option == None:
-    #         return self.osc.query(f'CH{self.activeChannel}?').strip().split(';')
-    #     if set:
-    #         self.osc.write(f'CH{self.activeChannel}:{option.name} {set}')
-    #     return self.osc.query(f'CH{self.activeChannel}:{option.name}?')
+    def VerticalParams(self, option: VerticalOptions, set=False): # Move into Channel subclass
+        '''
+            Use VerticalOptions
+        '''
+        if option == None:
+            return self.osc.query(f'CH{self.activeChannel}?').strip().split(';')
+        if set:
+            self.osc.write(f'CH{self.activeChannel}:{option.name} {set}')
+        return self.osc.query(f'CH{self.activeChannel}:{option.name}?')
         
     def HorizontalParams(self, option: HorizontalOptions = None, set=False):
         '''

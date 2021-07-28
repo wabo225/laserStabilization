@@ -27,7 +27,7 @@ class Vertical:
     YUN: str
 
 class Channel():
-    channelColors = {
+    channels = {
         1: "YELLOW",
         2: "BLUE",
         3: "PINK",
