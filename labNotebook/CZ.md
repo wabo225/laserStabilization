@@ -55,6 +55,27 @@ TOF Trial2 Low Power -- ~2mV
 **y=-1.74068 E-7 x- 0.0227541 Slope Error:3.03402 E-6**
 
 
+TOF 3 Trial Low Power~ 2.5 mV  50 C locked to Fg=2 87Rb Transition 
+![Low Power TOF](https://user-images.githubusercontent.com/69656527/127167099-8f1e583e-f0dd-4927-8b09-3eb8b7f0c8f9.png)
+
+**Unlocked : y= - 0.0000158461x -0.0118368 Slope Error:4.49543 E^-7**
+**Locked : y= 6.27708 E-6 x + 0.0122903 Slope Error:5.05484 E^-7**
+
+
+
+7/27
+
+Realigned saturated absorption 
+check for back reflection: first at quarter wave plate then half wave plate the 
+
+Coupled into Bristol wavemeter 
+comparing fabry perot with wavemeter--
+Both seemed to have a larger spread than friday measurements
+![Fabry VS WAVEMETER VS BEST](https://user-images.githubusercontent.com/69656527/127355520-f5ea255f-99ca-49e9-898d-2364f80a2b2d.png)
+
+
+Measuring Doppler Broadening as cell is heated 
+1.5Gz= 3.158805 V (piezo)
 
 
 
