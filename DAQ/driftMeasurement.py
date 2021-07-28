@@ -14,7 +14,7 @@ import re
 '''
 
 # change these values 
-duration = 45 # minutes
+duration = 10 # minutes
 timeBetween = .25 # >= .1 min = 6 sec
 filenameAddendum = ''
 pathToData = '../Data/FrequencyDrift/'
