@@ -1,0 +1,3 @@
+Background 
+Research into the Magnetically Induced Faraday Effect currently relies on Spin Polarized 3He. Spin exchange optical pumping can efficiently polarize a Helium sample but can lead to Rb contamination in the sample.
+A infrared 780nm laser can be used to probe the presence of Rb respectively. Diode laser will drift in frequency off and this resonance over time. We were successful in reducing drift by locking our laser using the Top of Fringe technique and the doppler-free atomic spectrum of Rb a reference for our PID control. 
