@@ -61,13 +61,13 @@ class Bristol:
         '''
         This function returns the wavelength read by the wavemeter
         '''
-        return self.query(":MEAS:WAV?")
+        return float(self.query(":MEAS:WAV?").strip())
     
     def frequency(self):
         '''
         This function returns the frequency read by the wavemeter
         '''
-        return self.query(":MEAS:FREQ?")
+        return float(self.query(":MEAS:FREQ?").strip())
     
     def __del__(self):
         self.wave.close()
