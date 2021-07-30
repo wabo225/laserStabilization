@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     26708,        704]
-NotebookOptionsPosition[     24828,        664]
-NotebookOutlinePosition[     25220,        680]
-CellTagsIndexPosition[     25177,        677]
+NotebookDataLength[     27623,        729]
+NotebookOptionsPosition[     25657,        688]
+NotebookOutlinePosition[     26049,        704]
+CellTagsIndexPosition[     26006,        701]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -473,10 +473,11 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"TableForm", "[", "nuView", "]"}]], "Input",
- NumberMarks->False,
- CellLabel->
-  "In[1441]:=",ExpressionUUID->"ffa32853-13ef-446b-842e-fffce8a5e455"],
+ RowBox[{
+  RowBox[{"TableForm", "[", "nuView", "]"}], "\[IndentingNewLine]"}]], "Input",\
+
+ CellChangeTimes->{3.836466826542547*^9},
+ NumberMarks->False,ExpressionUUID->"ffa32853-13ef-446b-842e-fffce8a5e455"],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -660,7 +661,30 @@ Cell[BoxData[
  CellLabel->
   "Out[1441]//TableForm=",ExpressionUUID->"c31f6585-14fd-4f54-badc-\
 a1b7b75ca5a2"]
-}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"changeDateTime", "[", "csv_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"csvOld", "=", "csv"}], "}"}], " ", ",", 
+    RowBox[{"MapAt", "[", 
+     RowBox[{"#", "-", 
+      RowBox[{"MapAt", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateDifference", "[", 
+          RowBox[{"Test1", ",", 
+           RowBox[{"FromDateString", "[", 
+            RowBox[{"ToString", "[", "#", "]"}], "]"}], ",", 
+           "\"\<Second\>\""}], "]"}], "&"}], ",", "Wavemeter", ",", 
+        RowBox[{"{", 
+         RowBox[{"All", ",", "1"}], "}"}]}], "]"}]}], "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.836466970192082*^9, 
+  3.836467030664221*^9}},ExpressionUUID->"e9252a05-dccc-4656-8b9c-\
+90a8e9eb0ad7"]
 },
 WindowSize->{651, 715},
 WindowMargins->{{Automatic, 123}, {Automatic, 0}},
@@ -685,7 +709,7 @@ Cell[2211, 66, 242, 5, 34, "Output",ExpressionUUID->"9cfec8a7-7b40-4313-ad6c-3ed
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[2490, 76, 203, 5, 30, "Input",ExpressionUUID->"7aa55b57-dff6-4426-92de-157290af9ae2"],
-Cell[2696, 83, 327, 11, 68, "Output",ExpressionUUID->"4a987c67-d8e4-4b3a-a632-2ee0e6c5e73a"]
+Cell[2696, 83, 327, 11, 45, "Output",ExpressionUUID->"4a987c67-d8e4-4b3a-a632-2ee0e6c5e73a"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[3060, 99, 253, 7, 30, "Input",ExpressionUUID->"cabf0b96-eb0c-478a-b59d-8d990c5dfa9a"],
@@ -696,19 +720,18 @@ Cell[3596, 119, 346, 7, 30, "Input",ExpressionUUID->"56d16ebe-e066-4643-b255-03d
 Cell[3945, 128, 437, 10, 28, "Message",ExpressionUUID->"59f9a5f5-f309-4903-b292-fda81278ca03"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4419, 143, 1428, 33, 178, InheritFromParent,ExpressionUUID->"5e9092cc-1f90-44a5-9e24-92ab7301b803"],
+Cell[4419, 143, 1428, 33, 178, "Input",ExpressionUUID->"5e9092cc-1f90-44a5-9e24-92ab7301b803"],
 Cell[5850, 178, 958, 23, 42, "Output",ExpressionUUID->"bdf08eac-706b-402d-835e-5b28f5dbd686"],
 Cell[6811, 203, 958, 23, 42, "Output",ExpressionUUID->"4938e06b-a5ae-443e-ba7e-e66727fddcfe"],
 Cell[7772, 228, 506, 10, 36, "Output",ExpressionUUID->"f239ff91-19c3-4f2f-81a6-dfc2fc6f083e"],
 Cell[8281, 240, 9285, 229, 451, "Output",ExpressionUUID->"0c540ca7-0ac7-49fd-b91e-0f0238a18bfb"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17603, 474, 172, 4, 30, "Input",ExpressionUUID->"ffa32853-13ef-446b-842e-fffce8a5e455"],
-Cell[17778, 480, 7034, 181, 1180, "Output",ExpressionUUID->"c31f6585-14fd-4f54-badc-a1b7b75ca5a2"]
-}, Open  ]]
+Cell[17603, 474, 223, 5, 52, "Input",ExpressionUUID->"ffa32853-13ef-446b-842e-fffce8a5e455"],
+Cell[17829, 481, 7034, 181, 1180, "Output",ExpressionUUID->"c31f6585-14fd-4f54-badc-a1b7b75ca5a2"]
+}, Open  ]],
+Cell[24878, 665, 775, 21, 136, "Input",ExpressionUUID->"e9252a05-dccc-4656-8b9c-90a8e9eb0ad7"]
 }
 ]
 *)
-
-(* End of internal cache information *)
 
