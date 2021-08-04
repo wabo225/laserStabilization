@@ -22,6 +22,7 @@ class Bristol:
         response = self.wave.read_until(b'\n', timeout=3).decode('utf-8')
         if response == '':
             raise self.EmptyBuffer
+            self.__del__(self)
         return response.strip()
 
     def MeasAll(self):
