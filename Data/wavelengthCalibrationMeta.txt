@@ -1,3 +1,4 @@
-current: 145.41792 mA
+Current: 145.41792 mA
 ScanAmp: 1.940773 V pp
 ScanOff: 64.641002 V
+ScanFreq: 0.50 Hz
