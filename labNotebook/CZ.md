@@ -79,3 +79,23 @@ Measuring Doppler Broadening as cell is heated
 ![Saturated Absorption Room Temp](https://user-images.githubusercontent.com/69656527/127486718-20463fca-100d-4560-88e1-706c113bb77f.png)
 
 ![Saturated Absorption 50 deg](https://user-images.githubusercontent.com/69656527/127486903-1dec0434-7cfe-45b0-8a1f-116d4da4a934.png)
+
+
+8/04/21
+
+Wavemeter 87 Rb F2-F3 Transition 
+
+384228.063 GHz 
+
+Theoretical-- 384228.1152
+
+
+-
+Coupled into fiber -- optimized the coupling from laser fiber doc
+
+aligned fabry perot using IR camera to observe collapse into single mode. Optimized using oscilloscope 
+
+measured wavelength of laser using bristol wavemeter
+
+
+

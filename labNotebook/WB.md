@@ -1,8 +1,7 @@
 ## Lab Notebook
-8/4/21
 
 ---
-
+8/4/21
 Listed Accomplishments
 
 - [x] Investigated the relationship between pc, cc, tc with intensity and wavelength
@@ -19,6 +18,18 @@ Listed Accomplishments
 Statistical Questions
 - [ ] At what wavelengths do we measure crossover resonances and ordinary resonances
   - These may be different from the theoretically calculated ones, the difference may be found from the index of refraction of the air in our room as apposed to the vacuous index the bristol assumes
-- [ ] What is the measured width of the resona
-- [ ] nces (FWHM)?
+- [ ] What is the measured width of the resonances (FWHM)?
   - [ ] How does FWHM change with temperature?
+
+### Wavelength Calibration
+
+cc: 146.71184 mA
+pc: 62.649938 V
+fq: 384228.06 GHz
+
+$$5^2S_{1/2}:\; F=2 \rightarrow 5^2P_{3/2}:\; F=3$$
+$$5^2S_{1/2}:\; F=2 \rightarrow \\ 5^2S_{1/2}:\; F_g 
+\rightarrow \\ 5^2P_{3/2}:\; F=3$$
+
+---
+8/5/21
