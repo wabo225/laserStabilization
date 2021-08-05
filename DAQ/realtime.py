@@ -28,24 +28,26 @@ with DLCpro(SerialConnection('COM4')) as d:
     ax.set_facecolor('dimgray')
     for i in range(duration):
         # set current based on function of index of sample loop
-        d.laser1.dl.cc.current_set.set(128+i*0.01)
+        # d.laser1.dl.pc.voltage_set.set(38+i*0.16)
         
         # update data stores. 
         tstart.append(time()-start)
-        x.append(d.laser1.dl.cc.current_act.get())
-        y.append(b.frequency())
+        x.append(b.frequency())
+        
+        # d.io.fine_2.value_act
+        y.append(d.io.fine_1.value_act.get())
         tend.append(time()-start)  # tstart and tend can be used for horizontal error bars, accounting for time difference between measurements and communications
         
         # Uncomment for scatterplot
         # plt.scatter(tend[-1],y[-1],color="wheat", marker='x')
 
         # Uncomment for line plot
-        plt.plot(tend,y,color="wheat")
+        plt.plot(x,y,color="wheat")
 
         plt.autoscale()
-        plt.pause(0.03)
+        plt.pause(0.04)
 
-        isLocked = d.laser1.dl.lock.lock_enabled.get()
+        # isLocked = d.laser1.dl.lock.lock_enabled.get()
         # d.laser1.dl.cc.current_set.set(128)
 
 
