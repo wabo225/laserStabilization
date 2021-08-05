@@ -4,6 +4,18 @@ from datetime import date
 from matplotlib import pyplot as plt
 from scipy import stats
 
+'''
+    This program was made to do customizable statistics on given files 
+    formatted by driftMeasurement.py. That program takes data from an 
+    oscilloscope, displaying a fabry-perot signal, and returns a csv 
+    file with the amount of drift at each point in time. Since finding 
+    an absolute frequency cannot be done, all frequencies are relative 
+    to the frequency at the start of the trial.
+
+    Here scipy is used to perform linear regression
+'''
+
+
 path_to_data = '../../Data/oscilloscope/data'
 d = str(date.today())
 
