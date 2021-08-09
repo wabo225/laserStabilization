@@ -1,7 +1,7 @@
 import numpy as np
 from os import listdir, path, stat
 from datetime import date
-from matplotlib import pyplot as plt
+from matplotlib import markers, pyplot as plt
 from scipy import stats
 
 '''
@@ -16,11 +16,13 @@ from scipy import stats
 '''
 
 
-path_to_data = '../../Data/oscilloscope/data'
+path_to_data = '../../Data/FrequencyDrift'
 d = str(date.today())
 
+print(*listdir(path_to_data), sep='\n')
+
 def callback(file_name: str):
-    return file_name.endswith('.csv') and file_name.find(d) != -1
+    return file_name.endswith('.csv') and file_name.find("23trial") != -1
 
 csv_paths = list(filter(callback, listdir(path_to_data)))
 
@@ -40,7 +42,7 @@ for i in range(len(csv_paths)):
         print(f'           Gain: {str(All)}\n')
         # print(f.readline())
         columns = f.readline().split(',')
-        dat = np.fromfile(f,sep=',')
+        dat = np.genfromtxt(f,delimiter=',')
         dat = np.reshape(dat,(-1,len(columns)))
         print()
         # print(dat)
@@ -48,10 +50,17 @@ for i in range(len(csv_paths)):
         frequency_drift = dat[:,1]
         current = dat[:,2]
 
-        print(stats.linregress(time,frequency_drift))
-        print()
+        regressOb = stats.linregress(time,frequency_drift)
+        line = lambda x : regressOb[0]*x + regressOb[1]
         
-        plt.plot(time, frequency_drift)
+        labels = ['No Locking', 'Top of Fringe Locking']
+        plt.scatter(time, frequency_drift, marker='o', s=4, label=labels[i])
+        plt.plot(time, line(time))
+
         pass
 
+plt.grid(color='grey')
+plt.xlabel('Time (s)')
+plt.ylabel('Frequency Drift (GHz)')
+plt.legend()
 plt.show()

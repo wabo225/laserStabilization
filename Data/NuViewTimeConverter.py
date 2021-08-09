@@ -54,6 +54,31 @@ def NuViewTimeConverter(pathToFile: str):
                 f.write(f'{cell}, ')
             f.write('\n')
 
+def openBristolFile(pathToFile: str) -> np.ndarray:
+    '''
+        This function requires a file formatted by the Bristol wavemeter gui, NuView. In NuView we generate .csv files by pressing File > record (or Alt > Enter > Down > Enter > Enter)
+
+        The file has a first column of timestamps, and optional second, third and fourth columns with headers signifying their contents.
+
+        The function does not return the contents, but rather writes to a new file with the word (copy) in the filename, at the same location.
+
+        @param pathToFile: str  path to file formatted as a NuView Recording csv
+
+        @todo I can imagine some of this code being useful in a statistical analysis library, but in that scenario we don't really need the copied csv. Consider splitting this function into a "write to file" function and a "return numpy object" function
+    '''
+    if not os.path.isfile(pathToFile):
+        print("\n You've given an invalid filename \n")
+        return
+    
+    with open(pathToFile) as f:
+        header = f.readline()
+        data = np.genfromtxt(f,dtype=str, delimiter=',')
+        secondsColumn = [BristolTimestampToPOSIX(timestamp) for timestamp in data[:,0]]
+        secondsColumn = [round(second-secondsColumn[0],3) for second in secondsColumn]
+        data[:,0] = secondsColumn
+    
+    return data
+
 if __name__ == "__main__":
     if len(argv) != 2:
         print("\nYou need to specify a file to convert")
