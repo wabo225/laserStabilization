@@ -122,8 +122,8 @@ if __name__ == "__main__":
   peakIndeces = find_peaks(baselineRemoved)[0]
   peakIndeces = [index + 200 for index in peakIndeces]
   
-  plt.plot(freqDomain[:,0], arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), label='Background Reduced')
-
+  # plt.plot(freqDomain[:,0], arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), label='Background Reduced')
+  plt.plot(freqDomain[:,0], arrays[0][:,2])
   peaks = []
   for i in peakIndeces:    
     peak = [freqDomain[useable:-1,0][i-200], list(arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]))[i]]
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     peaks.append(peak)
   
   peaks = np.array(peaks)
-  plt.scatter(peaks[:,0],peaks[:,1])
+  plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
   print(GHZtoNM(peaks[:,0]))
   plt.ticklabel_format(useOffset=False)
   plt.xlabel(r"Frequency (GHz)")
