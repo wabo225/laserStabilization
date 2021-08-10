@@ -1,6 +1,7 @@
 from typing import Callable, List
 import numpy as np
 from scipy.sparse.extract import find
+from scipy.stats.stats import friedmanchisquare
 from lib import DataIsolation
 from scipy.stats import linregress
 from matplotlib import pyplot as plt
@@ -116,26 +117,44 @@ if __name__ == "__main__":
 
   # arrays[0][:,0] = getCorrection()(arrays[0][:,0])
   useable = 200
-  freqDomain = getCorrection()(arrays[0])
+  freqDomain = arrays[0]
   baselineRemoved = ReLU(arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), -0.0659)[useable:-1]
   # plt.plot(freqDomain, baselineRemoved)
   peakIndeces = find_peaks(baselineRemoved)[0]
   peakIndeces = [index + 200 for index in peakIndeces]
   
   # plt.plot(freqDomain[:,0], arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), label='Background Reduced')
-  plt.plot(freqDomain[:,0], arrays[0][:,2])
   peaks = []
   for i in peakIndeces:    
     peak = [freqDomain[useable:-1,0][i-200], list(arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]))[i]]
     # plt.scatter(*peak)
     peaks.append(peak)
-  
   peaks = np.array(peaks)
+  
+  F2CO13 = peaks[1,0]
+  F2CO23 = peaks[0,0]
+
+  conversion = getCorrection(F2CO13, 384_227.902_408_097)
+  
+  freqDomain = conversion(freqDomain)
+  peaks = conversion(peaks)
+  plt.xlabel(r"Frequency (V)")
+  
+  # freqDomain = GHZtoNM(freqDomain)
+  # peaks= GHZtoNM(peaks)
+  # plt.xlabel(r"Wavelength (nm)")
+
+  plt.plot(freqDomain[:,0], arrays[0][:,2], label=r'Doppler Free $Rb$ Spectra')
   plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
-  print(GHZtoNM(peaks[:,0]))
+
+  print(f'F=2 CO13->CO23:  {(peaks[0,0]-peaks[1,0])*10**6} MHz')
+  deltaFreq = np.array([freqDomain[i,0] - freqDomain[i+1,0] for i in range(0,len(freqDomain[:,0])-1)])
+  deltaFreq = np.average(deltaFreq)
+  print(f'{deltaFreq*10**6=} MHz')
+  
+  
   plt.ticklabel_format(useOffset=False)
-  plt.xlabel(r"Frequency (GHz)")
   plt.ylabel(r"Transmission")
   plt.title(r'Hyperfine $Rb$ Spectrum without Background')
   plt.legend()
-  plt.show()
+  # plt.show()
