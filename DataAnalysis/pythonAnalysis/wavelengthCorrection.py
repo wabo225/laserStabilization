@@ -2,7 +2,7 @@ from typing import Callable
 import numpy as np
 from scipy._lib.six import _import_module
 from lib.BristolAnalysis import openBristolFile
-from scipy.constants import c
+from scipy import constants
 
 
 path_to_data = "../../Data"
@@ -14,7 +14,7 @@ def _linInterp(x0,y0,x1,y1) -> Callable:
   return lambda x : y0 + (x-x0)*((y1-y0)/(x1-x0))
 
 def GHZtoNM(GHz):
-  return c/GHz
+  return constants.c/GHz
 
 
 def findSlopeOnSawtooth(x:np.ndarray, y:np.ndarray=None):

@@ -1,5 +1,6 @@
 from typing import Callable, List
 import numpy as np
+from numpy.core.fromnumeric import argmin
 from scipy.sparse.extract import find
 from lib import DataIsolation
 from scipy.stats import linregress
@@ -122,20 +123,38 @@ if __name__ == "__main__":
   peakIndeces = find_peaks(baselineRemoved)[0]
   peakIndeces = [index + 200 for index in peakIndeces]
   
-  # plt.plot(freqDomain[:,0], arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), label='Background Reduced')
-  plt.plot(freqDomain[:,0], arrays[0][:,2])
+  
+  plt.plot(freqDomain[:,0][50:785], arrays[0][:,2][50:785], label='Saturated Absorption Spectrum')
+  
   peaks = []
   for i in peakIndeces:    
     peak = [freqDomain[useable:-1,0][i-200], list(arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]))[i]]
     # plt.scatter(*peak)
     peaks.append(peak)
-  
+  transitions= [r'$(a)$',r'$(b)$',r'$(c)$',r'$(d)$',r'$(e)$',r'$(f)$']
   peaks = np.array(peaks)
+  
+  
   plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
-  print(GHZtoNM(peaks[:,0]))
+  for i in range(len(peakIndeces)):
+    plt.text(peaks[i,0],arrays[0][peakIndeces[i],2],transitions[i], 
+      horizontalalignment= 'left' if i % 2==1 else 'right'
+      )
+
+  print(peaks)
+  # print(peaks[:,0])
+  diffs = np.array([[i - j for i in peaks] for j in peaks])
+  f2 = 0.266650
+  f2f3 = 0.302073888
+  
+  print(np.argmin(diffs-f2*np.ones(np.shape(diffs))))
+  print(np.argmin(diffs-f2f3*np.ones(np.shape(diffs))))
+
+
   plt.ticklabel_format(useOffset=False)
+  plt.grid(linestyle='--')
   plt.xlabel(r"Frequency (GHz)")
   plt.ylabel(r"Transmission")
-  plt.title(r'Hyperfine $Rb$ Spectrum without Background')
+  plt.title(r'Hyperfine $Rb$ Spectrum')
   plt.legend()
   plt.show()
