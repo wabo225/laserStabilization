@@ -1,6 +1,5 @@
 from typing import Callable
 import numpy as np
-from scipy._lib.six import _import_module
 from lib.BristolAnalysis import openBristolFile
 from scipy import constants
 
@@ -10,8 +9,9 @@ path_to_data = "../../Data"
 def _pm(midpoint, separation):
   return midpoint - separation, midpoint + separation
 
-def _linInterp(x0,y0,x1,y1) -> Callable:
-  return lambda x : y0 + (x-x0)*((y1-y0)/(x1-x0))
+def _linInterp(x0,y0,x1,y1,x2,y2) -> Callable:
+  # point slope form interpolation
+  return lambda x : y2 + (x-x2)*((y1-y0)/(x1-x0))
 
 def GHZtoNM(GHz):
   return constants.c/GHz
@@ -31,7 +31,11 @@ def findSlopeOnSawtooth(x:np.ndarray, y:np.ndarray=None):
   
   return np.min(y), np.max(y)
   
-def getCorrection(wavelength_calibration_filename = 'wavelengthCalibration'):
+def getCorrection(Piezo_of_Transition: float, Theoretical_Value: float, wavelength_calibration_filename = 'wavelengthCalibration'):
+  '''
+  Piezo_of_Transition: (V)
+  Theoretical_Value: (GHz)
+  '''
   d = openBristolFile(path_to_data + '/' + wavelength_calibration_filename +'.csv')
   freqRange = findSlopeOnSawtooth(d[:,0:2]) 
   with open(path_to_data + '/'+wavelength_calibration_filename+'Meta.txt') as meta:
@@ -39,11 +43,12 @@ def getCorrection(wavelength_calibration_filename = 'wavelengthCalibration'):
     scanAmplitude = float(meta.readline().split()[1])
     scanOffset = float(meta.readline().split()[1])
     scanFrequency = float(meta.readline().split()[1])
+  
   scanRange = _pm(scanOffset, scanAmplitude/2)
   # print(f'{scanRange=}')
   # print(f'{freqRange=}')
 
-  return _linInterp(scanRange[0], freqRange[0],scanRange[1],freqRange[1])
+  return _linInterp(scanRange[0], freqRange[0],scanRange[1],freqRange[1], Piezo_of_Transition, Theoretical_Value)
 
 
 if __name__ == "__main__":
