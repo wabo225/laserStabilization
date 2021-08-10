@@ -124,53 +124,26 @@ if __name__ == "__main__":
   peakIndeces = find_peaks(baselineRemoved)[0]
   peakIndeces = [index + 200 for index in peakIndeces]
   
-<<<<<<< HEAD
   
-  plt.plot(freqDomain[:,0][50:785], arrays[0][:,2][50:785], label='Saturated Absorption Spectrum')
+  # plt.plot(freqDomain[:,0][50:785], arrays[0][:,2][50:785], label='Saturated Absorption Spectrum')
   
-=======
   # plt.plot(freqDomain[:,0], arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]), label='Background Reduced')
->>>>>>> 083fc4c4077ba2628f713ba0318dffa07d7276b4
   peaks = []
   for i in peakIndeces:    
     peak = [freqDomain[useable:-1,0][i-200], list(arrays[0][:,2]-curry(gainUpdated1, *p0)(arrays[0][:,0]))[i]]
     # plt.scatter(*peak)
     peaks.append(peak)
-<<<<<<< HEAD
-  transitions= [r'$(a)$',r'$(b)$',r'$(c)$',r'$(d)$',r'$(e)$',r'$(f)$']
-  peaks = np.array(peaks)
   
-  
-  plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
-  for i in range(len(peakIndeces)):
-    plt.text(peaks[i,0],arrays[0][peakIndeces[i],2],transitions[i], 
-      horizontalalignment= 'left' if i % 2==1 else 'right'
-      )
-
-  print(peaks)
-  # print(peaks[:,0])
-  diffs = np.array([[i - j for i in peaks] for j in peaks])
-  f2 = 0.266650
-  f2f3 = 0.302073888
-  
-  print(np.argmin(diffs-f2*np.ones(np.shape(diffs))))
-  print(np.argmin(diffs-f2f3*np.ones(np.shape(diffs))))
-
-
-  plt.ticklabel_format(useOffset=False)
-  plt.grid(linestyle='--')
-  plt.xlabel(r"Frequency (GHz)")
-=======
   peaks = np.array(peaks)
   
   F2CO13 = peaks[1,0]
   F2CO23 = peaks[0,0]
 
-  conversion = getCorrection(F2CO13, 384_227.902_408_097)
+  conversion = getCorrection(F2CO13, 384_227.903_408_097)
   
   freqDomain = conversion(freqDomain)
   peaks = conversion(peaks)
-  plt.xlabel(r"Frequency (V)")
+  plt.xlabel(r"Frequency (GHz)")
   
   # freqDomain = GHZtoNM(freqDomain)
   # peaks= GHZtoNM(peaks)
@@ -179,15 +152,20 @@ if __name__ == "__main__":
   plt.plot(freqDomain[:,0], arrays[0][:,2], label=r'Doppler Free $Rb$ Spectra')
   plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
 
-  print(f'F=2 CO13->CO23:  {(peaks[0,0]-peaks[1,0])*10**6} MHz')
+  print(f'F=2 CO13->CO23:  {(peaks[0,0]-peaks[1,0])} GHz')
+  # print(freqDomain[:,0])
+  
   deltaFreq = np.array([freqDomain[i,0] - freqDomain[i+1,0] for i in range(0,len(freqDomain[:,0])-1)])
   deltaFreq = np.average(deltaFreq)
-  print(f'{deltaFreq*10**6=} MHz')
+  # print(f'{np.std(deltaFreq)=}')
+
+  print(f'{(peaks[0,0]-peaks[1,0])/deltaFreq=}')
+
+  print(f'{deltaFreq=} GHz')
   
   
   plt.ticklabel_format(useOffset=False)
->>>>>>> 083fc4c4077ba2628f713ba0318dffa07d7276b4
   plt.ylabel(r"Transmission")
   plt.title(r'Hyperfine $Rb$ Spectrum')
   plt.legend()
-  # plt.show()
+  plt.show()
