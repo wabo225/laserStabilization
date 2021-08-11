@@ -72,4 +72,13 @@ Posted up in the top of the student center. Feeling safe from coughing persons, 
     - If I'm really interested in doing something crazy I could make a 2.5D experimental setup
     - (Studio Apartment)[https://i.pinimg.com/originals/2b/4d/12/2b4d128db9ddb23323a7454a25f78ad2.jpg]
     - (Factory)[https://www.behance.net/gallery/97139209/infografico-infographic-industria-covid-19]
-  - Cyclic Design. 
+  - Cyclic Design.
+
+8/11/21
+
+### 
+
+vcxsrd: windows program to install linux graphics server
+
+
+ 
