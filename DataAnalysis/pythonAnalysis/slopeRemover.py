@@ -10,6 +10,8 @@ from scipy.optimize import minimize, curve_fit
 from scipy.signal import find_peaks
 from lib import statsCalculus
 from wavelengthCorrection import getCorrection, GHZtoNM
+from lib.posterTheme import Colors
+
 
 plt.rcParams['axes.facecolor'] = 'EEEEEE'
 
@@ -149,8 +151,8 @@ if __name__ == "__main__":
   # peaks= GHZtoNM(peaks)
   # plt.xlabel(r"Wavelength (nm)")
 
-  plt.plot(freqDomain[:,0], arrays[0][:,2], label=r'Doppler Free $Rb$ Spectra')
-  plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces])
+  plt.plot(freqDomain[:,0], arrays[0][:,2], label=r'Doppler Free $Rb$ Spectra', color=Colors.red)
+  plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces], color=Colors.red)
 
   print(f'F=2 CO13->CO23:  {(peaks[0,0]-peaks[1,0])} GHz')
   # print(freqDomain[:,0])
@@ -163,7 +165,7 @@ if __name__ == "__main__":
 
   print(f'{deltaFreq=} GHz')
   
-  
+  plt.grid(ls='--')
   plt.ticklabel_format(useOffset=False)
   plt.ylabel(r"Transmission")
   plt.title(r'Hyperfine $Rb$ Spectrum')
