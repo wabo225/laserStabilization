@@ -13,7 +13,7 @@ from wavelengthCorrection import getCorrection, GHZtoNM
 from lib.posterTheme import Colors
 
 
-plt.rcParams['axes.facecolor'] = 'EEEEEE'
+plt.rcParams['axes.facecolor'] = Colors.gray
 
 def removeLinearBackground(arrays: np.ndarray, sectionsTuple: List[List[int]]= [], column:int=1, N=10):
   if len(sectionsTuple) ==0:
@@ -151,8 +151,11 @@ if __name__ == "__main__":
   # peaks= GHZtoNM(peaks)
   # plt.xlabel(r"Wavelength (nm)")
 
-  plt.plot(freqDomain[:,0], arrays[0][:,2], label=r'Doppler Free $Rb$ Spectra', color=Colors.red)
-  plt.scatter(peaks[:,0],[arrays[0][i,2] for i in peakIndeces], color=Colors.red)
+  plt.plot(freqDomain[150:750,0], arrays[0][150:750,2], label=r'Doppler Free $Rb$ Spectra', color=Colors.red)
+  plt.scatter(peaks[:,0], [arrays[0][i,2] for i in peakIndeces], color=Colors.red)
+  alpha = 'abcdefghijkl'
+
+  [plt.text(peaks[i,0], arrays[0][peakIndeces[i],2], s=f'({alpha[i]})', ha='left' if i%2==1 else 'right') for i in range(len(peaks[:,0]))]
 
   print(f'F=2 CO13->CO23:  {(peaks[0,0]-peaks[1,0])} GHz')
   # print(freqDomain[:,0])

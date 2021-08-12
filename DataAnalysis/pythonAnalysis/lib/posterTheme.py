@@ -7,3 +7,4 @@ class Colors:
   dullsky = '#91C4F2'
   weedgreen = '#7DAA92'
   loudsky = '#60AFFF'
+  gray = '#CECCCC'
