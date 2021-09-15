@@ -1,7 +1,9 @@
 from typing import Callable
 import numpy as np
 from lib.BristolAnalysis import openBristolFile
-from scipy.constants import c
+from scipy import constants
+from lib.statsCalculus import numDer
+from scipy.stats import linregress
 
 
 path_to_data = "../../Data"
@@ -14,8 +16,7 @@ def _linInterp(x0,y0,x1,y1,x2,y2) -> Callable:
   return lambda x : y2 + (x-x2)*((y1-y0)/(x1-x0))
 
 def GHZtoNM(GHz):
-  return c/GHz
-
+  return constants.c/GHz
 
 def findSlopeOnSawtooth(x:np.ndarray, y:np.ndarray=None):
   '''
@@ -30,7 +31,27 @@ def findSlopeOnSawtooth(x:np.ndarray, y:np.ndarray=None):
   # print(*x, sep='\n')
   
   return np.min(y), np.max(y)
+
+def checkSlopeUncertainty(x:np.ndarray, y:np.ndarray=None):
+  '''
+  if y is not given, the function tries to use the second column of x
+  if both are given, they are assumed to have shape (1,n) or (n,1)
+  '''
+  if y is not None:
+    x=np.concatenate(x, y, axis=1)
   
+  
+  # isolate a section of positive slope
+  der = numDer(x)
+  increasingTable = [True if i > False else 0 for i in der[:,1]]
+  i=0
+  line_length = 50
+  stepsize = 20
+  while i<len(der[:,0]) and increasingTable[i] != increasingTable[i+line_length]:
+    i+=stepsize
+  positive_slope_section = x[i:i+line_length,:]
+  return linregress(positive_slope_section[:,0:2])
+
 def getCorrection(Piezo_of_Transition: float, Theoretical_Value: float, wavelength_calibration_filename = 'wavelengthCalibration'):
   '''
   Piezo_of_Transition: (V)
@@ -52,4 +73,6 @@ def getCorrection(Piezo_of_Transition: float, Theoretical_Value: float, waveleng
 
 
 if __name__ == "__main__":
-  getCorrection()
+  d = openBristolFile(path_to_data + '/wavelengthCalibration.csv')
+  print(f'StdErr: {checkSlopeUncertainty(d)}')
+  
