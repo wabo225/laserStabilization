@@ -69,7 +69,10 @@ class Bristol:
         This function returns the frequency read by the wavemeter
         '''
         return float(self.query(":MEAS:FREQ?").strip())
-    
+
+    def intensity(self):
+        return self.MeasAll().split(',')[2]
+
     def __del__(self):
         self.wave.close()
         print(f'\nConnection to {self.dev_addr} closed.')
