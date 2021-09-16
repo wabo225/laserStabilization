@@ -3,6 +3,8 @@ from os import listdir, path, stat
 from datetime import date
 from matplotlib import markers, pyplot as plt
 from scipy import stats
+from lib.posterTheme import Colors
+plt.rcParams['axes.facecolor'] = Colors.gray
 
 '''
     This program was made to do customizable statistics on given files 
@@ -25,6 +27,9 @@ def callback(file_name: str):
     return file_name.endswith('.csv') and file_name.find("23trial") != -1
 
 csv_paths = list(filter(callback, listdir(path_to_data)))
+
+colorcycle = [Colors.red, Colors.ukblue]
+trendcycle = [Colors.red, Colors.ukblue]
 
 for i in range(len(csv_paths)):
     print(csv_paths[i])
@@ -51,15 +56,15 @@ for i in range(len(csv_paths)):
         current = dat[:,2]
 
         regressOb = stats.linregress(time,frequency_drift)
+        print(f'{regressOb.slope=}')
+        print(f'{regressOb.stderr=}')
         line = lambda x : regressOb[0]*x + regressOb[1]
         
         labels = ['No Locking', 'Top of Fringe Locking']
-        plt.scatter(time, frequency_drift, marker='o', s=4, label=labels[i])
-        plt.plot(time, line(time))
+        plt.scatter(time, frequency_drift, marker='o', s=4, color=colorcycle[i])
+        plt.plot(time, line(time), color=trendcycle[i],label=labels[i])
 
-        pass
-
-plt.grid(color='grey')
+plt.grid(ls='--')
 plt.xlabel('Time (s)')
 plt.ylabel('Frequency Drift (GHz)')
 plt.legend()

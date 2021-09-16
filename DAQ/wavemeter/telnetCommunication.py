@@ -3,6 +3,8 @@ import numpy as np
 
 '''
 Example code for using the Bristol class found here in the DAQ/wavemeter folder
+
+And debugging for 2021
 '''
 
 b = Bristol()
@@ -19,5 +21,11 @@ print("Status Decoded:")
 for i in range(31,0, -1):
     if statusBin[i] == 1:
         print("               ", np.arange(31, 0,-1)[i])
+
+print("Auto Exposure Status", b.query("SENSe:EXPosure:AUTO?"))
+# print(b.write("SENSe:EXPosure:AUTO ON"))
+
+
+
 
 # These commands should be run alongside communication with the DLC

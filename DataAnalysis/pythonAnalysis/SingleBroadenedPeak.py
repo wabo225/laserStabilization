@@ -15,7 +15,7 @@ with open(path_to_data+'/'+filename) as f:
 
 plt.grid(ls='--')
 plt.plot(dat[:,0],dat[:,2], color=Colors.red)
-plt.plot(dat2[:,0],dat2[:,2]+0.3*np.ones(np.shape(dat2[:,2])), color=Colors.ukblue)
+plt.plot(dat2[:,0],12*dat2[:,2]+0.32*np.ones(np.shape(dat2[:,2])), color=Colors.ukblue)
 
 plt.xlabel('Peizo (V)')
 plt.ylabel('Transmission Intensity')
