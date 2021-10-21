@@ -22,8 +22,8 @@ for i in range(31,0, -1):
     if statusBin[i] == 1:
         print("               ", np.arange(31, 0,-1)[i])
 
-print("Auto Exposure Status", b.query("SENSe:EXPosure:AUTO?"))
-# print(b.write("SENSe:EXPosure:AUTO ON"))
+# b.write("SENSe:EXPosure:AUTO ON")
+print("Auto Exposure Status:", b.query("SENSe:EXPosure:AUTO?"))
 
 
 

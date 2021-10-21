@@ -13,6 +13,8 @@ import re
     @todo: write code to increment the trial number automatically
 '''
 
+# experimental change for Bruce
+
 # change these values 
 duration = 10 # minutes
 timeBetween = .25 # >= .1 min = 6 sec
