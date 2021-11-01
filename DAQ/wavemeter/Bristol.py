@@ -43,6 +43,22 @@ class Bristol:
         self.wave.write(b':MEAS:ALL?\r\n')
         return self.readline()
 
+    class PID:
+        def getValues(self):
+            Kd = self.query(":SENSe:PID:LCONstants:DERivative?").split(',')
+            Ki = self.query(":SENSe:PID:LCONstants:INTegral?").split(',')
+            Kp = self.query(":SENSe:PID:LCONstants:PROPorotional?").split(',')
+            return Kd, Ki, Kp
+
+        def setValues(self, Kd, Ki, Kp):
+            self.write(":SENSe:PID:LCONstants:DERivative " + str(Kd) + "\r\n")
+            self.write(":SENSe:PID:LCONstants:INTegral " + str(Ki) + "\r\n")
+            self.write(":SENSe:PID:LCONstants:PROPorotional " + str(Kp) + "\r\n")
+        
+        def checkFunctionality(self):
+            return self.query(":SENSe:PID:FUNCtion?")
+        
+
     def write(self, message: str) -> None:
         self.wave.write(f'{message}\r\n'.encode('utf-8'))
 
