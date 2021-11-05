@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 from  toptica.lasersdk.dlcpro.v2_2_0 import DLCpro, SerialConnection
 from toptica.lasersdk.utils.dlcpro import extract_float_arrays
 import datetime

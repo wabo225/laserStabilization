@@ -17,7 +17,7 @@ def getNextTrialNumber(pathToData: str):
         return 1
     return max(indices) + 1
 
-with DLCpro(SerialConnection('COM4')) as d:
+with DLCpro(SerialConnection('COM9')) as d:
     b = Bristol()
     x = []
     tend = []

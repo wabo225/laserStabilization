@@ -1,4 +1,5 @@
 from telnetlib import Telnet
+import numpy as np
 
 class Bristol:
     def __init__(self, ip_addr = '10.199.199.1', quiet=False):
@@ -25,6 +26,11 @@ class Bristol:
             self.__del__(self)
         return response.strip()
 
+    def autoExposure(self, value):
+        if value == 'ON' or value == 'off':
+            self.write(f':SENS:EXP:AUTO {value}')
+        return self.query(':SENS:EXP:AUTO?')
+
     def MeasAll(self):
         '''
         This function took a maximum of 0.009097 seconds
@@ -43,20 +49,24 @@ class Bristol:
         self.wave.write(b':MEAS:ALL?\r\n')
         return self.readline()
 
-    class PID:
-        def getValues(self):
-            Kd = self.query(":SENSe:PID:LCONstants:DERivative?").split(',')
-            Ki = self.query(":SENSe:PID:LCONstants:INTegral?").split(',')
-            Kp = self.query(":SENSe:PID:LCONstants:PROPorotional?").split(',')
-            return Kd, Ki, Kp
+    def getConstants(self):
+        Kd = self.query(":SENSe:PID:LCONstants:DERivative?")
+        Ki = self.query(":SENSe:PID:LCONstants:INTegral?")
+        Kp = self.query(":SENSe:PID:LCONstants:PROPortional?")
+        return Kd, Ki, Kp
 
-        def setValues(self, Kd, Ki, Kp):
-            self.write(":SENSe:PID:LCONstants:DERivative " + str(Kd) + "\r\n")
-            self.write(":SENSe:PID:LCONstants:INTegral " + str(Ki) + "\r\n")
-            self.write(":SENSe:PID:LCONstants:PROPorotional " + str(Kp) + "\r\n")
-        
-        def checkFunctionality(self):
-            return self.query(":SENSe:PID:FUNCtion?")
+    def setconstants(self, Kd, Ki, Kp):
+        self.write(":SENSe:PID:LCONstants:DERivative " + str(Kd) + "\r\n")
+        self.write(":SENSe:PID:LCONstants:INTegral " + str(Ki) + "\r\n")
+        self.write(":SENSe:PID:LCONstants:PROPortional " + str(Kp) + "\r\n")
+    
+    def checkFunctionality(self):
+        return self.query(":SENSe:PID:FUNCtion?")
+    
+    def setPointPID(self, setPoint: float = ''):
+        if type(setPoint) == float:
+            self.write(f':SENSe:PID:SPOint {setPoint}')
+        return self.query(':SENSe:PID:SPOint?')
         
 
     def write(self, message: str) -> None:
@@ -87,11 +97,19 @@ class Bristol:
         return float(self.query(":MEAS:FREQ?").strip())
 
     def intensity(self):
-        return self.MeasAll().split(',')[2]
+        return self.MeasAll().split(',')[3]
 
     def __del__(self):
         self.wave.close()
         print(f'\nConnection to {self.dev_addr} closed.')
 
+    def displayStatus(self):
+        statusBin = [int(i) for i in "{:b}".format(int(self.MeasAll().split(',')[1]))]
+        statusBin = np.array(list(np.zeros(32-len(statusBin), int)) + statusBin)
+
+        print("Status Decoded:")
+        for i in range(31,0, -1):
+            if statusBin[i] == 1:
+                print("               ", np.arange(31, 0,-1)[i])
 if __name__ == "__main__":
     Bristol()
