@@ -12,6 +12,9 @@ Thus far, there are three instruments with communication wrappers (communication
 1. Tektronics Oscilloscope (./oscilloscope)
 2. Bristol Wavemeter (./wavemeter)
 3. Toptica Diode Laser Controller (./DLC)
+4. NuFocus Diode Laser Controller (./NewFocus)
+
+The manuals for each of the instruments are save in `laserStabilization/Resources/Manuals/` do not shy away from the programming section of these. Though it is the longest section, it contains helpful hints about the breadth of the possibilities with instrument automation.
 
 ### Requirements
 
@@ -22,6 +25,3 @@ Thus far, there are three instruments with communication wrappers (communication
 5. `pip install matplotlib`
 
 You also need to enable telnet communication. This is machine specific and not too difficult. Communication with the bristol works through a 'server' hosted by the instrument, and communication is through telnet protocol.
-
-
-

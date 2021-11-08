@@ -12,6 +12,7 @@ class Laser:
         self.controls = Controls(self)
         self.queries = Queries(self)
 
+        self.system.mcontrol(False)
     
     def OPC(self):
         self.inst.query("*OPC?")
@@ -20,7 +21,6 @@ class Laser:
         self.system.mcontrol(False) # disables remote control
         self.inst.close()
         print("Communication to New Focus 6300 has been closed.")
-
 class Output:
     _command = ":OUTPut"
     def __init__(self, laser_instance: Laser) -> None:
@@ -136,3 +136,4 @@ class Queries:
 
 if __name__ == "__main__":
     pyvisa.ResourceManager().list_resources()     
+    l = Laser()
