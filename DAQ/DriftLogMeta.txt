@@ -1,0 +1,8 @@
+NewFocus 6312  G2065 H2.05 C2.05
+
+   Current: 88.7
+     Power: 5.0
+Wavelength: 780.2
+     Piezo: 61.800000
+
+Communication to New Focus 6300 has been closed.

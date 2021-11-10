@@ -1,0 +1,19 @@
+NewFocus 6312  G2065 H2.05 C2.05
+
+Laser Params-
+       Current: 93.1
+         Power: 6.0
+    Wavelength: 780.2
+
+Bristol Values-
+       Minimum: 780.228980 nm-vac
+       Maximum: 780.277581 nm-vac
+
+Piezo Scan-
+        Offset: 77.500000
+     Amplitude: 1 Vpp
+     Frequency: 1 Hz
+     Fn Offset: 50.0 mV
+
+
+Communication to New Focus 6300 has been closed.

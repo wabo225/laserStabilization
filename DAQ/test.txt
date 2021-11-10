@@ -1,0 +1,11 @@
+NewFocus 6312  G2065 H2.05 C2.05
+
+   Current: 93.1
+     Power: 5.8
+Wavelength: 780.2
+Piezo Scan-
+        Offset: 50.000000
+     Amplitude: 0.5 Vpp
+     Frequency: 0.5 Hz
+
+Communication to New Focus 6300 has been closed.
