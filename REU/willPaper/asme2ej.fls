@@ -208,13 +208,6 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
-INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
-INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
-INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
-INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\courier\pcrr7t.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmrc7t.tfm
 INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ts1ptm.fd
 INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ts1ptm.fd
 INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ts1ptm.fd
@@ -234,15 +227,29 @@ INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmb7t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmrm.vf
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmrm.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\courier\pcrr7t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmrc7t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr8c.vf
+INPUT .\figure\FP.PNG
+INPUT .\figure\FP.PNG
+INPUT figure\FP.PNG
+INPUT .\figure\FP.PNG
+INPUT .\figure\FP.PNG
+INPUT .\figure\FP.PNG
+INPUT .\figure\FP.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT figure\FPsweep.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT .\figure\FPsweep.PNG
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\zptmcmr.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\zptmcmr.tfm
@@ -256,6 +263,21 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmb7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmb7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri7t.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri7t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr7t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zpsycmrv.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT .\figure\FMANU_MD_05_1107_11.jpg
 INPUT .\figure\FMANU_MD_05_1107_11.jpg
 INPUT figure\FMANU_MD_05_1107_11.jpg
@@ -270,23 +292,6 @@ INPUT .\figure\FMANU_MD_05_1272_5.jpg
 INPUT .\figure\FMANU_MD_05_1272_5.jpg
 INPUT .\figure\FMANU_MD_05_1272_5.jpg
 INPUT .\figure\FMANU_MD_05_1272_5.jpg
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zpsycmrv.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmrm.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\zptmcmr.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
-INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\helvetic\phvr7t.vf
-INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\helvetic\phvr8r.tfm
 INPUT .\figure\FMANU_MD_04_1274_13.jpg
 INPUT .\figure\FMANU_MD_04_1274_13.jpg
 INPUT figure\FMANU_MD_04_1274_13.jpg
@@ -299,6 +304,15 @@ INPUT .\figure\FMANU_MD_04_1274_13.jpg
 INPUT figure\FMANU_MD_04_1274_13.jpg
 INPUT .\figure\FMANU_MD_04_1274_13.jpg
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmrc7t.tfm
+INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
+INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
+INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
+INPUT C:\Users\wabod\AppData\Roaming\MiKTeX\tex\latex\psnfss\ot1pcr.fd
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\courier\pcrr7t.tfm
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmrc7t.vf
+INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\courier\pcrr7t.vf
+INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
 INPUT .\asme2ej.bbl
 INPUT asme2ej.bbl
 INPUT .\asme2ej.bbl

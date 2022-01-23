@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex asme2ej"] 1639261860 "asme2ej.aux" "asme2ej.bbl" "asme2ej" 1639261918
+["bibtex asme2ej"] 1642015961 "asme2ej.aux" "asme2ej.bbl" "asme2ej" 1642016006
   "./asmems4.bst" 1639259760 25583 1f5756761e817b92e0a24aa53bf459b4 ""
   "asme2e.bib" 1639259760 4332 f55a6edf02b8d7a46a35253123077b2f ""
-  "asme2ej.aux" 1639261918 3879 7ea37045d5e618494f93624043d48aaa "pdflatex"
+  "asme2ej.aux" 1642016006 4213 3a1125f390a8d96540152d4b0c8b995b "pdflatex"
   (generated)
   "asme2ej.bbl"
   "asme2ej.blg"
-["pdflatex"] 1639261917 "c:/Users/wabod/Documents/laserStabilization/REU/willPaper/asme2ej.tex" "asme2ej.pdf" "asme2ej" 1639261918
+["pdflatex"] 1642016005 "c:/Users/wabod/Documents/laserStabilization/REU/willPaper/asme2ej.tex" "asme2ej.pdf" "asme2ej" 1642016006
   "C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458470287 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136765053 960 379cc0019370a9e0208a0a3f949f847a ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136765053 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -65,7 +65,7 @@
   "C:/Program Files/MiKTeX/tex/latex/graphics/trig.sty" 1622999725 4007 3bccccf8f35e1bc1ef0f7c55ceeb7713 ""
   "C:/Program Files/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1634573416 29971 6c47712bf4bc87d15b2ca318615f75a3 ""
   "C:/Users/wabod/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1636903894 9716511 9e4e1372dc58be76e8ec2e55acfa665d ""
-  "C:/Users/wabod/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1639259872 82507 a9eef8696c92627b87e9975edea03b2a ""
+  "C:/Users/wabod/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1639850657 173980 475f9cd2c4b3603507a940c6eb6d90e4 ""
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/mathptm.sty" 1585923171 2947 1c9cca75433a9bd80eb7eb7deb0227a7 ""
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/omlptmcm.fd" 1585250178 428 9192021592ce021f5236f40ea9cb5ee2 ""
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/omspzccm.fd" 1585250178 345 d517b7c860d57a2003a0a61e6bea8c93 ""
@@ -76,15 +76,17 @@
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/ot1ptmcm.fd" 1585250178 344 a287f1198bc35c2e45560f9504f84b3c ""
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/times.sty" 1585923171 888 8e0e5c8cca7b18e0400f97f5a2b90a99 ""
   "C:/Users/wabod/AppData/Roaming/MiKTeX/tex/latex/psnfss/ts1ptm.fd" 1585250178 653 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
-  "asme2ej.aux" 1639261918 3879 7ea37045d5e618494f93624043d48aaa "pdflatex"
-  "asme2ej.bbl" 1639261860 2756 23097e188a458d69f5d120e33d058900 "bibtex asme2ej"
+  "asme2ej.aux" 1642016006 4213 3a1125f390a8d96540152d4b0c8b995b "pdflatex"
+  "asme2ej.bbl" 1642015961 2756 23097e188a458d69f5d120e33d058900 "bibtex asme2ej"
   "asme2ej.cls" 1639259760 47768 2d46251de9218636681c92438a2f2917 ""
-  "asme2ej.tex" 1639261917 23932 05059c0a6534713c1531550b5eec1466 ""
-  "c:/Users/wabod/Documents/laserStabilization/REU/willPaper/asme2ej.tex" 1639261917 23932 05059c0a6534713c1531550b5eec1466 ""
+  "asme2ej.tex" 1642016004 25427 92dd4b4b46103e19b680a3c4ed55e765 ""
+  "c:/Users/wabod/Documents/laserStabilization/REU/willPaper/asme2ej.tex" 1642016004 25427 92dd4b4b46103e19b680a3c4ed55e765 ""
   "figure/FMANU_MD_04_1274_13.jpg" 1639259760 120162 6997b5c8a2b3f9050b88659443437b7a ""
   "figure/FMANU_MD_05_1107_11.jpg" 1639259760 70065 4e5c5fe6549dbd96d5c9ca1961d6a1ee ""
   "figure/FMANU_MD_05_1272_5.jpg" 1639259760 95609 f2744b4d367b9337ecc2e76db4def2bb ""
+  "figure/FP.PNG" 1642014127 19376 3acc136df183f1c747b0a8da3331a672 ""
+  "figure/FPsweep.PNG" 1642015746 377847 d6128b5a04720f17643b02397102d194 ""
   (generated)
-  "asme2ej.pdf"
-  "asme2ej.aux"
   "asme2ej.log"
+  "asme2ej.aux"
+  "asme2ej.pdf"
